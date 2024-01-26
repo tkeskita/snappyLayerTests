@@ -17,7 +17,9 @@ files = list(filter(os.path.isfile, glob.glob(search_dir + "/*")))
 # Sort files by file creation date
 files.sort(key=lambda x: os.path.getmtime(x))
 
-os.remove("results.txt")
+resultfilename="results.txt"
+if os.path.isfile(resultfilename):
+    os.remove(resultfilename)
 
 for file in files:
     filename = os.fsdecode(file)
@@ -37,5 +39,5 @@ for file in files:
     text += w1 + w2 + w3
 
     print("extracted results: " + text)
-    with open("results.txt", "a") as myfile:
+    with open(resultfilename, "a") as myfile:
         myfile.write(text + "\n")
