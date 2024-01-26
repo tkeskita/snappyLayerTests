@@ -1,128 +1,178 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Version:  8
-     \\/     M anipulation  |
-\*---------------------------------------------------------------------------*/
 FoamFile
 {
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    location    "system";
-    object      snappyHexMeshDict;
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          snappyHexMeshDict;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-castellatedMesh on;
+castellatedMesh true;
+snap            true;
+addLayers       true;
 
-snap            on;
-
-addLayers       on;
+geometry
+{
+    walls
+    {
+        type triSurfaceMesh;
+        file "walls.stl";
+        // Min Bounds = [-8.00000e-01 -8.00000e-01  0.00000e+00]
+        // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
+        // Area = 2.94400e+01
+    }
+    walls_manifold
+    {
+        type triSurfaceMesh;
+        file "walls_manifold.stl";
+        // Min Bounds = [-2.91665e-01 -3.50289e-01 -4.39978e-05]
+        // Max Bounds = [ 1.75115e+00  3.32267e-01  1.35152e+00]
+        // Area = 8.72209e+00
+    }
+    walls_nonmanifold
+    {
+        type triSurfaceMesh;
+        file "walls_nonmanifold.stl";
+        // Min Bounds = [-1.56381e-01 -2.79974e-01  1.48975e-01]
+        // Max Bounds = [ 1.55242e+00  2.68634e-01  1.12107e+00]
+        // Area = 1.68600e+00
+    }
+}
 
 castellatedMeshControls
 {
     maxLocalCells   100000;
-    maxGlobalCells  100000000;
+    maxGlobalCells  10000000;
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
-    nCellsBetweenLevels 3;
-    resolveFeatureAngle 30;
+    nCellsBetweenLevels 4;
+    locationInMesh (0.0 0.0 1.5);
     allowFreeStandingZoneFaces true;
+    resolveFeatureAngle 30;
+    // useLeakClosure true; // OpenFOAM.com option
+
     features
-    ( 
+    (
+        {
+            file "walls.eMesh";
+            level 0;
+        }
+        {
+            file "walls_manifold.eMesh";
+            level 0;
+        }
+        {
+            file "walls_nonmanifold.eMesh";
+            level 0;
+        }
+
     );
+
     refinementSurfaces
     {
-        cad
+        walls
         {
-            level           ( 2 2 );
-            patchInfo       { type wall; }
+            level (0 0);
+            patchInfo { type patch; }
         }
+        walls_manifold
+        {
+            level (0 0);
+            patchInfo { type patch; }
+        }
+        walls_nonmanifold
+        {
+            level (0 0);
+            patchInfo { type patch; }
+            faceZone walls_nonmanifold;
+            faceType baffle;
+        }
+
     }
+
     refinementRegions
     {
+
     }
-    locationInMesh  (0.199 1e-5 1e-5) ;
 }
 
 snapControls
 {
     nSmoothPatch    3;
-    tolerance       1.5;
-    nSolveIter      100;
-    nRelaxIter      10;
-    nFeatureSnapIter 20;
-    explicitFeatureSnap false;
-    multiRegionFeatureSnap true; 
-    implicitFeatureSnap true;
+    nSmoothInternal 3; // OpenFOAM.com option
+    tolerance       2.0;
+    nSolveIter      30;
+    nRelaxIter      5;
+    nFeatureSnapIter 10;
+    implicitFeatureSnap false;
+    explicitFeatureSnap true;
+    multiRegionFeatureSnap true;
+    nFaceSplitInterval -1; // OpenFOAM.com option
 }
 
 addLayersControls
 {
-    featureAngle    120;
-    slipFeatureAngle 30;
-    nLayerIter      50;
-    nRelaxedIter    20;
-    nRelaxIter      5;
+    // Layer sizing
+    relativeSizes   true;
+    expansionRatio  1.3;
+    finalLayerThickness 0.3;
+    minThickness    0.001;
     nGrow           0;
-    nSmoothSurfaceNormals 1;
-    nSmoothNormals  3;
-    nSmoothThickness 10;
+
+    // Mesh dependencies
+    featureAngle    130;
+    mergePatchFacesAngle 45; // OpenFOAM.com option
+    layerTerminationAngle -180; // OpenFOAM.com option
     maxFaceThicknessRatio 0.5;
-    maxThicknessToMedialRatio 0.3;
+
+    // Mesh displacement iterations
+    nSmoothSurfaceNormals 12; // 3 * max number of layers seems good
+    nSmoothThickness 10;
+    nSmoothNormals  0;
+    nSmoothDisplacement 100;
+
+    // Medial axis analysis
     minMedialAxisAngle 90;
-    nMedialAxisIter 10;
+    maxThicknessToMedialRatio 0.9;
+    slipFeatureAngle 30;
+    nRelaxIter      1;
+
+    // OpenFOAM.com displacement motion solver
+    // meshShrinker displacementMotionSolver;
+    // solver displacementLaplacian;
+    // displacementLaplacianCoeffs { diffusivity quadratic inverseDistance ("wall.*"); }
+
+    // Mesh shrinking overall settings
     nBufferCellsNoExtrude 0;
-    additionalReporting false;
+    nLayerIter      50;
+    nRelaxedIter    0;
+    nOuterIter      2; // OpenFOAM.com option, half of max number of layers seems good
+    additionalReporting true;
+
     layers
     {
-        cad { nSurfaceLayers 3; }
+        walls_manifold
+        {
+            nSurfaceLayers 4;
+        }
+        walls_nonmanifold
+        {
+            nSurfaceLayers 4;
+        }
+        walls_nonmanifold_slave
+        {
+            nSurfaceLayers 4;
+        }
+
     }
-    relativeSizes   true;
-    finalLayerThickness 0.3;
-    expansionRatio  1.1;
-    nLayers         5;
-    minThickness    0.001;
 }
 
 meshQualityControls
 {
-    maxNonOrtho         65;
-    maxBoundarySkewness 20;
-    maxInternalSkewness 4;
-    maxConcave          80;
-    minVol              1e-13;
-    minTetQuality       -1e+30;
-    minArea             -1;
-    minTwist            0.02;
-    minDeterminant      0.001;
-    minFaceWeight       0.05;
-    minVolRatio         0.01;
-    minTriangleTwist    -1;
-    nSmoothScale        4;
-    errorReduction      0.75;
-    relaxed {}
+    nSmoothScale    4;
+    errorReduction  0.75;
+    #include "meshQualityDict"
 }
 
-debug           0;
+writeFlags      ( scalarLevels layerSets layerFields );
 
 mergeTolerance  1e-06;
-
-geometry
-{
-    snappyTest.obj
-    {
-        type    triSurfaceMesh;
-        name    cad;
-    }
-}
-
-writeFlags      
-(
-    layerFields
-);
-
-
-// ************************************************************************* //

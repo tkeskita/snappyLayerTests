@@ -1,0 +1,2 @@
+rm -f ../logs/*.png
+rm -f ../images/*.png
