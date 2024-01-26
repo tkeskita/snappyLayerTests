@@ -16,6 +16,9 @@ screenshotDir = '../images'
 if not os.path.exists(screenshotDir):
     os.makedirs(screenshotDir)
 
+from datetime import datetime
+date_time_string = datetime.now().strftime("%y%m%d%H%M")
+
 ###########################
 ##      Functions        ##
 ###########################
@@ -103,7 +106,7 @@ text1Display = Show(text1, renderView1, 'TextSourceRepresentation')
 text1Display.Color = [1.0, 1.0, 1.0]
 text1Display.FontSize = 50
 
-SaveScreenshot(f'{screenshotDir}/slice_{name}.png',renderView1,ImageResolution=[2400,1600])
+SaveScreenshot(f'{screenshotDir}/slice_{date_time_string}_{name}.png',renderView1,ImageResolution=[2400,1600])
 
 ## Make a new render view, swap to it and set the camera
 SetActiveView(None)
@@ -121,4 +124,4 @@ text2Display = Show(text1, renderView2, 'TextSourceRepresentation')
 text2Display.Color = [0.0, 0.0, 0.0]
 text2Display.FontSize = 50
 
-SaveScreenshot(f'{screenshotDir}/surface_{name}.png',renderView2,ImageResolution=[2400,2400])
+SaveScreenshot(f'{screenshotDir}/surface_{date_time_string}_{name}.png',renderView2,ImageResolution=[2400,2400])
