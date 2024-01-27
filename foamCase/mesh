@@ -20,6 +20,8 @@ echo "running reconstructPar for time 2"
 reconstructPar -time 2 > /dev/null
 echo "running checkMesh for time 2"
 checkMesh -time 2 &> log.checkMesh_time2
+echo "Delete time 2"
+rm -rf 2
 
 echo "running reconstructParMesh for time 3"
 reconstructParMesh -time 3 > /dev/null

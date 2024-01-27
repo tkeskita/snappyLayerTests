@@ -17,7 +17,7 @@ if not os.path.exists(screenshotDir):
     os.makedirs(screenshotDir)
 
 from datetime import datetime
-date_time_string = datetime.now().strftime("%y%m%d%H%M")
+date_time_string = datetime.now().strftime("%y%m%d%H%M%S")
 
 ###########################
 ##      Functions        ##
