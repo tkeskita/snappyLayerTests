@@ -1,4 +1,6 @@
 rm -r constant/extendedFeatureEdgeMesh
 rm -f constant/triSurface/*.eMesh.gz
+rm -f results.txt
+rm -f system/snappyHexMeshDict
 rm -f ../logs/log.*
 rm -f ../images/*.png

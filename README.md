@@ -24,10 +24,11 @@ a time.
   clean-up and separated manifold and non-manifold surfaces to
   separate STL files). This tutorial geometry is highly complex and
   thereby a good test for automatic mesh generation software.
-* Using constant cubic block mesh size (25 mm side length) as a
-  background mesh. No mesh refinements. That made the
-  computational effort tolerable for a home PC. However, the downside
-  is that layer addition is only partial at this mesh resolution.
+* Using constant cubic block mesh size (50 mm side length) as a
+  background mesh, with one surface refinement level around the motor
+  bike surfaces (25 mm side length). That made the computational
+  effort tolerable for a home PC. However, the downside is that layer
+  addition is only partial at this mesh resolution.
 * Target of four layers only (because of computational effort).
 * Using only explicit feature in snapping phase (`explicitFeatureSnap true`).
   Surface feature extraction applied feature angle value 150.

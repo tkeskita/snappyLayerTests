@@ -76,12 +76,12 @@ castellatedMeshControls
         }
         walls_manifold
         {
-            level (0 0);
+            level (1 1);
             patchInfo { type patch; }
         }
         walls_nonmanifold
         {
-            level (0 0);
+            level (1 1);
             patchInfo { type patch; }
             faceZone walls_nonmanifold;
             faceType baffle;
