@@ -1,2 +1,4 @@
-rm -f ../logs/*.png
+rm -r constant/extendedFeatureEdgeMesh
+rm -f constant/triSurface/*.eMesh.gz
+rm -f ../logs/log.*
 rm -f ../images/*.png

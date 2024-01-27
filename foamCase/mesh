@@ -13,10 +13,20 @@ echo "running decomposePar"
 decomposePar > /dev/null
 echo "running Snappy"
 mpirun -np 3 snappyHexMesh -parallel &> log.snappyHexMesh
-echo "running reconstructParMesh"
-reconstructParMesh -latestTime > /dev/null
-echo "running reconstructPar"
-reconstructPar -latestTime > /dev/null
+
+echo "running reconstructParMesh for time 2"
+reconstructParMesh -time 2 > /dev/null
+echo "running reconstructPar for time 2"
+reconstructPar -time 2 > /dev/null
+echo "running checkMesh for time 2"
+checkMesh -time 2 &> log.checkMesh_time2
+
+echo "running reconstructParMesh for time 3"
+reconstructParMesh -time 3 > /dev/null
+echo "running reconstructPar for time 3"
+reconstructPar -time 3 > /dev/null
+echo "running checkMesh for time 3"
+checkMesh -time 3 &> log.checkMesh_time3
 
 # save the mesh images
 printf "Generating mesh images...\n"

@@ -57,4 +57,6 @@ for key, value in layerTests.items():
         name = f'{key}_{str(val)}'
         os.system(f'./mesh {name}')
         os.system(f'mv log.snappyHexMesh ../logs/log.snappyHexMesh_' + f'{key}_{str(val)}')
+        os.system(f'mv log.checkMesh_time2 ../logs/log.checkMesh_time2_' + f'{key}_{str(val)}')
+        os.system(f'mv log.checkMesh_time3 ../logs/log.checkMesh_time3_' + f'{key}_{str(val)}')
         os.system(f'rm {snappyDict}')
