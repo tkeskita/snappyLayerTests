@@ -13,11 +13,11 @@ pattern2 = re.compile("^walls_nonmanifold\s.*\d+\s+\d+\s+([\d\.]+)\s+[\d\.]+\s+(
 pattern3 = re.compile("^walls_nonmanifold_slave\s.*\d+\s+\d+\s+([\d\.]+)\s+[\d\.]+\s+([\d\.]+)")
 
 search_dir = "../logs"
-files = list(filter(os.path.isfile, glob.glob(search_dir + "/*")))
+files = list(filter(os.path.isfile, glob.glob(search_dir + "/log.snappyHexMesh_*")))
 # Sort files by file creation date
 files.sort(key=lambda x: os.path.getmtime(x))
 
-resultfilename="results.txt"
+resultfilename="results_snappy.txt"
 if os.path.isfile(resultfilename):
     os.remove(resultfilename)
 
