@@ -41,6 +41,23 @@ layerTests['meshQualityControls.nSmoothScale']   = [0, 1, 2, 3, 4, 6, 8, 10, 12]
 layerTests['meshQualityControls.errorReduction'] = [0, 0.05, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
 layerTests['mergeTolerance']                     = [1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 5e-3, 1e-2]
 
+layerTests['meshQualityControls.maxNonOrtho']         = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 180]
+layerTests['meshQualityControls.maxBoundarySkewness'] = [-1, 0, 5, 10, 15, 20, 25, 30, 35, 40]
+layerTests['meshQualityControls.maxInternalSkewness'] = [-1, 0, 2, 4, 6, 8, 10, 20]
+layerTests['meshQualityControls.maxConcave']          = [0, 20, 40, 60, 70, 80, 90, 180]
+layerTests['meshQualityControls.minVol']              = [-1e33, 1e-30, 1e-15, 1e-10]
+layerTests['meshQualityControls.minTetQuality']       = [-1e-30, 1e-30, 1e-15, 1e-10]
+layerTests['meshQualityControls.minArea']             = [-1, 1e-30, 1e-5, 1e-3, 1e-2]
+layerTests['meshQualityControls.minTwist']            = [-1e30, 0.001, 0.01, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minDeterminant']      = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minFaceWeight']       = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minVolRatio']         = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minTriangleTwist']    = [-1, 0.05, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
+
+layerTests['meshQualityControls.relaxed.maxNonOrtho']      = [40, 50, 60, 70, 80, 90, 180]
+layerTests['meshQualityControls.relaxed.minTriangleTwist'] = [-1, 0.05, 0.1, 0.2, 0.4, 0.5]
+layerTests['meshQualityControls.relaxed.minTetQuality']    = [-1e-30, 1e-30, 1e-15, 1e-10]
+
 def changeSnappySetting(setting, value, dict='./system/snappyHexMeshDict'):
     os.system('foamDictionary -entry ' + setting + ' -set ' + value + ' ' + dict)
 
@@ -49,6 +66,9 @@ snappyTemplate = './system/snappy.template'
 
 if os.path.isfile(snappyDict):
     os.remove(snappyDict)
+
+print("=====\nStarting to run: variations=%d, parameters=%d" % \
+      (sum([len(x) for x in layerTests.values()]), len(layerTests.keys())))
 
 for key, value in layerTests.items():
     for val in value:
