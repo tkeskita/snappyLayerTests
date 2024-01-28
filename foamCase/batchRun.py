@@ -8,8 +8,7 @@ import os
 layerTests = {}
 
 layerTests['snapControls.nSmoothPatch']       = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20]
-# nSmoothInternal affects only implicit feature snapping cases
-# layerTests['snapControls.nSmoothInternal']    = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20]
+layerTests['snapControls.nSmoothInternal']    = [0, 1, 2, 3, 4, 5, 6]
 layerTests['snapControls.tolerance']          = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
 layerTests['snapControls.nSolveIter']         = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20, 30, 40, 50]
 layerTests['snapControls.nRelaxIter']         = [0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 30]
@@ -25,9 +24,9 @@ layerTests['addLayersControls.mergePatchFacesAngle']      = [0, 15, 30, 45, 60, 
 layerTests['addLayersControls.layerTerminationAngle']     = [-180, -90, 0, 45, 90, 135, 180]
 layerTests['addLayersControls.maxFaceThicknessRatio']     = [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0]
 layerTests['addLayersControls.nSmoothSurfaceNormals']     = [0, 1, 2, 4, 8, 12, 16, 32]
-layerTests['addLayersControls.nSmoothThickness']          = [0, 1, 2, 4, 8, 12, 16, 32]
+layerTests['addLayersControls.nSmoothThickness']          = [0, 1, 2, 4, 6, 8, 10, 12, 16, 20, 30, 40, 60, 100]
 layerTests['addLayersControls.nSmoothNormals']            = [0, 1, 2, 4, 8, 12, 16]
-layerTests['addLayersControls.nSmoothDisplacement']       = [0, 1, 2, 4, 8, 12, 20, 50, 75, 100]
+layerTests['addLayersControls.nSmoothDisplacement']       = [0, 1, 2, 4, 8, 10, 12, 16, 20, 30, 40, 50]
 layerTests['addLayersControls.minMedialAxisAngle']        = [0, 5, 15, 30, 45, 90, 120, 180]
 layerTests['addLayersControls.maxThicknessToMedialRatio'] = [0.001, 0.01, 0.1, 0.2, 0.5, 0.7, 1.0, 1.5, 2.0]
 layerTests['addLayersControls.slipFeatureAngle']          = [0, 5, 15, 30, 45, 90, 120, 160, 180]

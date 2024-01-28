@@ -21,18 +21,22 @@ def parse_logs(time_dir):
         os.remove(resultfilename)
 
     pattern1 = re.compile("^\ \ \<\<Writing\ (\d+).*\ to\ set\ (\w+)")
+    pattern2 = re.compile("^\ \ \<\<Writing\ region\ \d+\ with\ \d+\ cells\ to\ cellSet")
 
     for file in files:
         filename = os.fsdecode(file)
         testname = filename.split("_time" + str(time_dir) + "_")[1]
         text_short = ""
         text_long = ""
+        nRegions = 0
         for line in open(filename):
             for match in re.finditer(pattern1, line):
                 shorthand = match.group(2)[0] + ''.join(c for c in match.group(2) if c.isupper())
                 text_short += shorthand + match.group(1) + "+"
                 text_long += match.group(2) + "=" + match.group(1) + "," 
-        text = testname + "," + text_short[0:-1] + "," + text_long[0:-1]
+            for match in re.finditer(pattern2, line):
+                nRegions += 1
+        text = testname + "," + text_short[0:-1] + " regions=%d," % nRegions + text_long[0:-1]
         print("extracted results: " + text)
         with open(resultfilename, "a") as myfile:
             myfile.write(text + "\n")
