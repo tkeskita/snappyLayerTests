@@ -1,0 +1,6 @@
+./remove_results
+surfaceFeatureExtract
+python3 batchRun.py
+python3 process_logfiles.py
+python3 process_checkmesh_files.py
+python3 plot_results.py

@@ -7,11 +7,39 @@ FoamFile
 }
 
 // Exported by SnappyHexMesh GUI add-on for Blender v1.5
-// Source file: /path/to/motorBike_003.blend
-// Export date: 2024-01-18 20:10:21.857336
+// Source file: /path/to/motorBike_005.blend
+// Export date: 2024-02-02 13:45:10.796927
 
 
-walls.stl
+atmosphere.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+frontBack.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+inlet.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+outlet.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+walls_ground.stl
 {
     extractionMethod extractFromSurface;
     extractFromSurfaceCoeffs { includedAngle 150; }

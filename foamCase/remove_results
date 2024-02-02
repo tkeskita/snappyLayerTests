@@ -1,6 +1,12 @@
-rm -r constant/extendedFeatureEdgeMesh
+./Allclean
+rm -rf constant/extendedFeatureEdgeMesh
 rm -f constant/triSurface/*.eMesh.gz
-rm -f results.txt
+rm -f results_snappy.txt
+rm -f results_checkmesh_*.txt
 rm -f system/snappyHexMeshDict
 rm -f ../logs/log.*
 rm -f ../images/*.png
+rm -rf 0
+rm -f results.png
+rm -rf system/largestOnly
+

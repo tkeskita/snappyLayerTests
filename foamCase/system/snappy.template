@@ -12,13 +12,45 @@ addLayers       true;
 
 geometry
 {
-    walls
+    atmosphere
     {
         type triSurfaceMesh;
-        file "walls.stl";
+        file "atmosphere.stl";
+        // Min Bounds = [-8.00000e-01 -8.00000e-01  2.00000e+00]
+        // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
+        // Area = 5.12000e+00
+    }
+    frontBack
+    {
+        type triSurfaceMesh;
+        file "frontBack.stl";
         // Min Bounds = [-8.00000e-01 -8.00000e-01  0.00000e+00]
         // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
-        // Area = 2.94400e+01
+        // Area = 1.28000e+01
+    }
+    inlet
+    {
+        type triSurfaceMesh;
+        file "inlet.stl";
+        // Min Bounds = [-8.00000e-01 -8.00000e-01  0.00000e+00]
+        // Max Bounds = [-8.00000e-01  8.00000e-01  2.00000e+00]
+        // Area = 3.20000e+00
+    }
+    outlet
+    {
+        type triSurfaceMesh;
+        file "outlet.stl";
+        // Min Bounds = [ 2.40000e+00 -8.00000e-01  0.00000e+00]
+        // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
+        // Area = 3.20000e+00
+    }
+    walls_ground
+    {
+        type triSurfaceMesh;
+        file "walls_ground.stl";
+        // Min Bounds = [-8.00000e-01 -8.00000e-01  0.00000e+00]
+        // Max Bounds = [ 2.40000e+00  8.00000e-01  0.00000e+00]
+        // Area = 5.12000e+00
     }
     walls_manifold
     {
@@ -53,7 +85,23 @@ castellatedMeshControls
     features
     (
         {
-            file "walls.eMesh";
+            file "atmosphere.eMesh";
+            level 0;
+        }
+        {
+            file "frontBack.eMesh";
+            level 0;
+        }
+        {
+            file "inlet.eMesh";
+            level 0;
+        }
+        {
+            file "outlet.eMesh";
+            level 0;
+        }
+        {
+            file "walls_ground.eMesh";
             level 0;
         }
         {
@@ -69,20 +117,40 @@ castellatedMeshControls
 
     refinementSurfaces
     {
-        walls
+        atmosphere
         {
             level (0 0);
             patchInfo { type patch; }
         }
+        frontBack
+        {
+            level (0 0);
+            patchInfo { type patch; }
+        }
+        inlet
+        {
+            level (0 0);
+            patchInfo { type patch; }
+        }
+        outlet
+        {
+            level (0 0);
+            patchInfo { type patch; }
+        }
+        walls_ground
+        {
+            level (0 0);
+            patchInfo { type wall; }
+        }
         walls_manifold
         {
             level (1 1);
-            patchInfo { type patch; }
+            patchInfo { type wall; }
         }
         walls_nonmanifold
         {
             level (1 1);
-            patchInfo { type patch; }
+            patchInfo { type wall; }
             faceZone walls_nonmanifold;
             faceType baffle;
         }
@@ -150,6 +218,10 @@ addLayersControls
 
     layers
     {
+        walls_ground
+        {
+            nSurfaceLayers 4;
+        }
         walls_manifold
         {
             nSurfaceLayers 4;
