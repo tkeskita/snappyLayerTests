@@ -28,7 +28,7 @@ def loadFoam(dotFoamFile: str, path: str):
     casefoam = OpenFOAMReader(registrationName=dotFoamFile, FileName=path)
     casefoam.SkipZeroTime = 0
     casefoam.CaseType = 'Reconstructed Case'
-    casefoam.MeshRegions = ['internalMesh', 'walls_manifold', 'walls_nonmanifold']
+    casefoam.MeshRegions = ['internalMesh', 'walls_manifold', 'walls_nonmanifold_slave']
     casefoam.CellArrays = ['nSurfaceLayers', 'thickness', 'thicknessFraction']
     casefoam.Decomposepolyhedra = 0
 
@@ -89,6 +89,9 @@ if not os.path.exists('./case.foam'):
 
 # create a new 'OpenFOAMReader'
 casefoam = loadFoam('case.foam', f'./')
+
+animationScene1 = GetAnimationScene()
+animationScene1.GoToLast()
 
 # Create a slice to display the mesh cross section
 slice1 = meshSlice(casefoam)

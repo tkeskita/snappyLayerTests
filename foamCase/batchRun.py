@@ -57,8 +57,9 @@ layerTests['meshQualityControls.relaxed.maxNonOrtho']      = [40, 50, 60, 70, 80
 layerTests['meshQualityControls.relaxed.minTriangleTwist'] = [-1, 0.05, 0.1, 0.2, 0.4, 0.5]
 layerTests['meshQualityControls.relaxed.minTetQuality']    = [-1e-30, 1e-30, 1e-15, 1e-10]
 
+
 def changeSnappySetting(setting, value, dict='./system/snappyHexMeshDict'):
-    os.system('foamDictionary -entry ' + setting + ' -set ' + value + ' ' + dict)
+    os.system('foamDictionary -entry ' + setting + ' -set ' + value + ' ' + dict + ' &> /dev/null')
 
 snappyDict = './system/snappyHexMeshDict'
 snappyTemplate = './system/snappy.template'
@@ -76,7 +77,7 @@ for key, value in layerTests.items():
         changeSnappySetting(key, str(val))
         name = f'{key}_{str(val)}'
         os.system(f'./mesh {name}')
-        os.system(f'mv log.snappyHexMesh ../logs/log.snappyHexMesh_' + f'{key}_{str(val)}')
-        os.system(f'mv log.checkMesh_time2 ../logs/log.checkMesh_time2_' + f'{key}_{str(val)}')
-        os.system(f'mv log.checkMesh_time3 ../logs/log.checkMesh_time3_' + f'{key}_{str(val)}')
+        os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
+        os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
+        os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
         os.system(f'rm {snappyDict}')

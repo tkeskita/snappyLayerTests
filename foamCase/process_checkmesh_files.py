@@ -8,15 +8,15 @@ import os
 import re
 import glob
 
-def parse_logs(time_dir):
-    """Parse checkMesh logs for argument time_dir (2 or 3)"""
+def parse_logs(logname):
+    """Parse checkMesh logs for argument logname (snapping or layers)"""
  
-    search_dir = "../logs/log.checkMesh_time" + str(time_dir) + "_*"
+    search_dir = "../logs/log.checkMesh_" + logname + "_*"
     files = list(filter(os.path.isfile, glob.glob(search_dir)))
     # Sort files by file creation date
     files.sort(key=lambda x: os.path.getmtime(x))
 
-    resultfilename="results_checkmesh_time" + str(time_dir) + ".txt"
+    resultfilename="results_checkmesh_" + logname + ".txt"
     if os.path.isfile(resultfilename):
         os.remove(resultfilename)
 
@@ -25,7 +25,7 @@ def parse_logs(time_dir):
 
     for file in files:
         filename = os.fsdecode(file)
-        testname = filename.split("_time" + str(time_dir) + "_")[1]
+        testname = filename.split("checkMesh_" + logname + "_")[1]
         text_short = ""
         text_long = ""
         nRegions = 0
@@ -41,5 +41,5 @@ def parse_logs(time_dir):
         with open(resultfilename, "a") as myfile:
             myfile.write(text + "\n")
 
-parse_logs(2)
-parse_logs(3)
+parse_logs('snapping')
+parse_logs('layers')

@@ -1,6 +1,8 @@
 #!/bin/bash
-. $WM_PROJECT_DIR/bin/tools/RunFunctions
+#
+# Run OpenFOAM commands to generate mesh, log files and images
 
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
 name="$1"
 
 # Clean the case
@@ -18,17 +20,19 @@ echo "running reconstructParMesh for time 2"
 reconstructParMesh -time 2 > /dev/null
 echo "running reconstructPar for time 2"
 reconstructPar -time 2 > /dev/null
-echo "running checkMesh for time 2"
-checkMesh -time 2 &> log.checkMesh_time2
-echo "Delete time 2"
-rm -rf 2
+echo "running checkMesh for time 2 (snapping)"
+checkMesh -time 2 &> log.checkMesh_snapping
 
 echo "running reconstructParMesh for time 3"
 reconstructParMesh -time 3 > /dev/null
 echo "running reconstructPar for time 3"
 reconstructPar -time 3 > /dev/null
-echo "running checkMesh for time 3"
-checkMesh -time 3 &> log.checkMesh_time3
+echo "running splitMeshRegions -largestOnly for time 3"
+splitMeshRegions -largestOnly &> log.splitMeshRegions
+mv 4/largestOnly/* 4/
+rmdir 4/largestOnly
+echo "running checkMesh for time 4 (layers)"
+checkMesh -time 4 &> log.checkMesh_layers
 
 # save the mesh images
 printf "Generating mesh images...\n"

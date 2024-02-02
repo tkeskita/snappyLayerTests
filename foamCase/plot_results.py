@@ -9,8 +9,8 @@ import csv
 labels=[]
 layers=[]
 with open('results_snappy.txt', newline='\n') as csvfile, \
-    open('results_checkmesh_time2.txt', newline='\n') as csvfile2, \
-    open('results_checkmesh_time3.txt', newline='\n') as csvfile3:
+    open('results_checkmesh_snapping.txt', newline='\n') as csvfile2, \
+    open('results_checkmesh_layers.txt', newline='\n') as csvfile3:
     reader = csv.reader(csvfile, delimiter=',')
     reader2 = csv.reader(csvfile2, delimiter=',')
     reader3 = csv.reader(csvfile3, delimiter=',')
