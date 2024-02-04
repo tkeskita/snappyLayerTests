@@ -25,7 +25,7 @@ def parse_logs(logname):
 
     for file in files:
         filename = os.fsdecode(file)
-        testname = filename.split("checkMesh_" + logname + "_")[1]
+        testname = filename.split("checkMesh_" + logname + "_")[1].lstrip("0123456789_")
         text_short = ""
         text_long = ""
         nRegions = 0

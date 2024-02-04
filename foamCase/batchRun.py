@@ -4,8 +4,31 @@ and save the results.
 """
 
 import os
+from datetime import datetime
+import time
+import subprocess
 
+# Variation test cases
 layerTests = {}
+
+# layerTests['addLayers'] = ['true', 'false']
+
+layerTests['meshQualityControls.maxNonOrtho']         = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 180]
+layerTests['meshQualityControls.maxBoundarySkewness'] = [-1, 0, 5, 10, 15, 20, 25, 30, 35, 40]
+layerTests['meshQualityControls.maxInternalSkewness'] = [-1, 0, 2, 4, 6, 8, 10, 20]
+layerTests['meshQualityControls.maxConcave']          = [0, 20, 40, 60, 70, 80, 90, 180]
+layerTests['meshQualityControls.minVol']              = [-1e33, 1e-30, 1e-15, 1e-10]
+layerTests['meshQualityControls.minTetQuality']       = [-1e-30, 1e-30, 1e-15, 1e-10]
+layerTests['meshQualityControls.minArea']             = [-1, 1e-30, 1e-5, 1e-3, 1e-2]
+layerTests['meshQualityControls.minTwist']            = [-1e30, 0.001, 0.01, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minDeterminant']      = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minFaceWeight']       = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minVolRatio']         = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
+layerTests['meshQualityControls.minTriangleTwist']    = [-1, 0.05, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
+
+layerTests['meshQualityControls.relaxed.maxNonOrtho']      = [40, 50, 60, 70, 80, 90, 180]
+layerTests['meshQualityControls.relaxed.minTriangleTwist'] = [-1, 0.05, 0.1, 0.2, 0.4, 0.5]
+layerTests['meshQualityControls.relaxed.minTetQuality']    = [-1e-30, 1e-30, 1e-15, 1e-10]
 
 layerTests['snapControls.nSmoothPatch']       = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20]
 layerTests['snapControls.nSmoothInternal']    = [0, 1, 2, 3, 4, 5, 6]
@@ -40,26 +63,31 @@ layerTests['meshQualityControls.nSmoothScale']   = [0, 1, 2, 3, 4, 6, 8, 10, 12]
 layerTests['meshQualityControls.errorReduction'] = [0, 0.05, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
 layerTests['mergeTolerance']                     = [1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 5e-3, 1e-2]
 
-layerTests['meshQualityControls.maxNonOrtho']         = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 180]
-layerTests['meshQualityControls.maxBoundarySkewness'] = [-1, 0, 5, 10, 15, 20, 25, 30, 35, 40]
-layerTests['meshQualityControls.maxInternalSkewness'] = [-1, 0, 2, 4, 6, 8, 10, 20]
-layerTests['meshQualityControls.maxConcave']          = [0, 20, 40, 60, 70, 80, 90, 180]
-layerTests['meshQualityControls.minVol']              = [-1e33, 1e-30, 1e-15, 1e-10]
-layerTests['meshQualityControls.minTetQuality']       = [-1e-30, 1e-30, 1e-15, 1e-10]
-layerTests['meshQualityControls.minArea']             = [-1, 1e-30, 1e-5, 1e-3, 1e-2]
-layerTests['meshQualityControls.minTwist']            = [-1e30, 0.001, 0.01, 0.1, 0.5, 0.9, 0.95, 0.99]
-layerTests['meshQualityControls.minDeterminant']      = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
-layerTests['meshQualityControls.minFaceWeight']       = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
-layerTests['meshQualityControls.minVolRatio']         = [-1, 0.001, 0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]
-layerTests['meshQualityControls.minTriangleTwist']    = [-1, 0.05, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
-
-layerTests['meshQualityControls.relaxed.maxNonOrtho']      = [40, 50, 60, 70, 80, 90, 180]
-layerTests['meshQualityControls.relaxed.minTriangleTwist'] = [-1, 0.05, 0.1, 0.2, 0.4, 0.5]
-layerTests['meshQualityControls.relaxed.minTetQuality']    = [-1e-30, 1e-30, 1e-15, 1e-10]
-
 
 def changeSnappySetting(setting, value, dict='./system/snappyHexMeshDict'):
     os.system('foamDictionary -entry ' + setting + ' -set ' + value + ' ' + dict + ' &> /dev/null')
+
+
+def is_base_case(setting, value):
+    base_value = subprocess.check_output('foamDictionary -value -entry ' + setting + ' ./system/snappy.template', shell=True)
+    if value == base_value.decode('ascii').strip():
+        return True
+    return False
+
+
+def copy_base_case_results(name):
+    os.system(f'cp ../logs/log.snappyHexMesh_base ../logs/log.snappyHexMesh_' + name)
+    os.system(f'cp ../logs/log.checkMesh_snapping_base ../logs/log.checkMesh_snapping_' + name)
+    os.system(f'cp ../logs/log.checkMesh_layers_base ../logs/log.checkMesh_layers_' + name)
+    os.system(f'cp ../images/slice_base.png ../images/slice_' + name + ".png")
+    os.system(f'cp ../images/surface_base.png ../images/surface_' + name + ".png")
+
+
+def store_log_files(name):
+    os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
+    os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
+    os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
+
 
 snappyDict = './system/snappyHexMeshDict'
 snappyTemplate = './system/snappy.template'
@@ -67,17 +95,35 @@ snappyTemplate = './system/snappy.template'
 if os.path.isfile(snappyDict):
     os.remove(snappyDict)
 
-print("=====\nStarting to run: variations=%d, parameters=%d" % \
+print("=====\nTotal variations=%d, total parameters=%d" % \
       (sum([len(x) for x in layerTests.values()]), len(layerTests.keys())))
 
+# Run the base case
+name = 'base'
+print("=====\nStarting to run case %r" % name)
+os.system(f'cp {snappyTemplate} {snappyDict}')
+os.system(f'./mesh {name} dummy_argument')
+os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
+os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
+os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
+os.system(f'rm {snappyDict}')
+
+# Run variations
 for key, value in layerTests.items():
     for val in value:
-        print("=====\nStarting to run case %r" % (str(key) + "=" + str(val)))
+        name = f'{key}_{str(val)}'
+        # Add time string to image file name end, unless this is the base case
+        date_time_string = datetime.now().strftime("%y%m%d%H%M%S")
+
+        print("=====\nStarting to run case %r" % name)
+        if is_base_case(key, str(val)):
+            print("This variation equals the base case, copying results from the base case")
+            copy_base_case_results(f'{date_time_string}_{name}')
+            time.sleep(1)
+            continue
+
         os.system(f'cp {snappyTemplate} {snappyDict}')
         changeSnappySetting(key, str(val))
-        name = f'{key}_{str(val)}'
-        os.system(f'./mesh {name}')
-        os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
-        os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
-        os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
+        os.system(f'./mesh {name} {date_time_string}')
+        store_log_files(f'{date_time_string}_{name}')
         os.system(f'rm {snappyDict}')

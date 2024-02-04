@@ -4,6 +4,7 @@
 
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 name="$1"
+date_time_string="$2"
 
 # Clean the case
 ./Allclean
@@ -27,6 +28,8 @@ echo "running reconstructParMesh for time 3"
 reconstructParMesh -time 3 > /dev/null
 echo "running reconstructPar for time 3"
 reconstructPar -time 3 > /dev/null
+
+# Resulting mesh contains unconnected mesh regions, keep only the largest one
 echo "running splitMeshRegions -largestOnly for time 3"
 splitMeshRegions -largestOnly &> log.splitMeshRegions
 mv 4/largestOnly/* 4/
@@ -36,4 +39,4 @@ checkMesh -time 4 &> log.checkMesh_layers
 
 # save the mesh images
 printf "Generating mesh images...\n"
-~/temp/ParaView-5.9.1-MPI-Linux-Python3.8-64bit/bin/pvpython pvscript.py $name
+~/temp/ParaView-5.9.1-MPI-Linux-Python3.8-64bit/bin/pvpython pvscript.py $name $date_time_string

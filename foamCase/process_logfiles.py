@@ -23,7 +23,7 @@ if os.path.isfile(resultfilename):
 
 for file in files:
     filename = os.fsdecode(file)
-    testname = filename.split("snappyHexMesh_")[1]
+    testname = filename.split("snappyHexMesh_")[1].lstrip("0123456789_")
     text = testname + ","
 
     w1 = "0.0,"
