@@ -167,7 +167,7 @@ snapControls
 {
     nSmoothPatch    1; // 3;
     nSmoothInternal 1; // 3; // OpenFOAM.com option
-    tolerance       1.5; // 2.0;
+    tolerance       2.0; // 1.5; // 2.0;
     nSolveIter      4; // 30;
     nRelaxIter      5;
     nFeatureSnapIter 2; // 10;

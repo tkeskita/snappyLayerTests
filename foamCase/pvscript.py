@@ -82,10 +82,7 @@ def meshSurface(casefoam):
 ## Start the main script ##
 ###########################
 
-renderView1 = GetActiveViewOrCreate('RenderView')
-renderView1.CameraParallelProjection = 1
-renderView1.OrientationAxesVisibility = 0
-renderView1.Background = [1.0, 1.0, 1.0]
+renderView0 = GetActiveViewOrCreate('RenderView')
 
 ## check if a file exists in the directory called case.foam, if not, create it using touch
 if not os.path.exists('./case.foam'):
@@ -93,9 +90,19 @@ if not os.path.exists('./case.foam'):
 
 # create a new 'OpenFOAMReader'
 casefoam = loadFoam('case.foam', f'./')
-
 animationScene1 = GetAnimationScene()
 animationScene1.GoToLast()
+
+## Make a new render view, swap to it and set the camera
+SetActiveView(None)
+layout1 = CreateLayout(name='Layout #1')
+renderView1 = CreateView('RenderView')
+renderView1.CameraParallelProjection = 1
+renderView1.OrientationAxesVisibility = 0
+renderView1.Background = [1.0, 1.0, 1.0]
+AssignViewToLayout(view=renderView1, layout=layout1, hint=0)
+camera = GetActiveCamera()
+setOverheadCam(camera)
 
 # Create a slice to display the mesh cross section
 slice1 = meshSlice(casefoam)
@@ -104,17 +111,14 @@ slice1Display.SetRepresentationType('Surface With Edges')
 ColorBy(slice1Display, ('CELLS', 'nSurfaceLayers'))
 slice1Display.ScaleFactor = 50
 
-camera = GetActiveCamera()
-setOverheadCam(camera)
-
-text1 = Text(registrationName=name)
-text1.Text = name
-text1Display = Show(text1, renderView1, 'TextSourceRepresentation')
-if name == 'base':
-    text1Display.Color = [1.0, 0.0, 0.0]
-else:
-    text1Display.Color = [1.0, 1.0, 1.0]
-text1Display.FontSize = 50
+# text1 = Text(registrationName=name)
+# text1.Text = name
+# text1Display = Show(text1, renderView1, 'TextSourceRepresentation')
+# if name == 'base':
+#     text1Display.Color = [1.0, 0.0, 0.0]
+# else:
+#     text1Display.Color = [1.0, 1.0, 1.0]
+# text1Display.FontSize = 50
 
 SaveScreenshot(f'{screenshotDir}/slice_{file_name_end}.png',renderView1,ImageResolution=[2400,1600])
 
@@ -130,11 +134,11 @@ setPerspectiveCam(camera)
 
 meshSurface(casefoam)
 
-text2Display = Show(text1, renderView2, 'TextSourceRepresentation')
-if name == 'base':
-    text2Display.Color = [1.0, 0.0, 0.0]
-else:
-    text2Display.Color = [0.0, 0.0, 0.0]
-text2Display.FontSize = 50
+# text2Display = Show(text1, renderView2, 'TextSourceRepresentation')
+# if name == 'base':
+#     text2Display.Color = [1.0, 0.0, 0.0]
+# else:
+#     text2Display.Color = [0.0, 0.0, 0.0]
+# text2Display.FontSize = 50
 
 SaveScreenshot(f'{screenshotDir}/surface_{file_name_end}.png',renderView2,ImageResolution=[2400,2400])

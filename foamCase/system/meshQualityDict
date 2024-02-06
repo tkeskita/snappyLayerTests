@@ -16,10 +16,10 @@ maxInternalSkewness 4;
 maxConcave      80;
 minVol          1e-15;
 minTetQuality   1e-15;
-minArea         -1;
-minTwist        0.05;
+minArea         1e-30; // -1;
+minTwist        0.01; // 0.05;
 minDeterminant  0.001;
-minFaceWeight   0.05;
+minFaceWeight   0.01; // 0.05;
 minVolRatio     0.01;
 minTriangleTwist 0.6;
 
@@ -28,5 +28,5 @@ minTriangleTwist 0.6;
 relaxed {
     maxNonOrtho 70;
     minTriangleTwist 0.5;
-    minTetQuality -1e+30;
+    // minTetQuality -1e+30;
 }

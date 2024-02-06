@@ -10,12 +10,14 @@ labels=[]
 layers=[]
 with open('results_snappy.txt', newline='\n') as csvfile, \
     open('results_checkmesh_snapping.txt', newline='\n') as csvfile2, \
-    open('results_checkmesh_layers.txt', newline='\n') as csvfile3:
+    open('results_checkmesh_layers.txt', newline='\n') as csvfile3, \
+    open('results_labels.txt', newline='\n') as csvfile4:
     reader = csv.reader(csvfile, delimiter=',')
     reader2 = csv.reader(csvfile2, delimiter=',')
     reader3 = csv.reader(csvfile3, delimiter=',')
-    for row, row2, row3 in zip(reader, reader2, reader3):
-        label = row[0] + ": E2=" + row2[1] + ", E3=" + row3[1] 
+    reader4 = csv.reader(csvfile4, delimiter=',')
+    for row, row2, row3, row4 in zip(reader, reader2, reader3, reader4):
+        label = row4[0] + ": E2=" + row2[1] + ", E3=" + row3[1]
         labels.append(label)
         layer_avg = (float(row[1]) + float(row[2]) + float(row[3])) / 3.0
         layers.append(layer_avg)
