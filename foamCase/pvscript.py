@@ -111,6 +111,7 @@ slice1Display.SetRepresentationType('Surface With Edges')
 ColorBy(slice1Display, ('CELLS', 'nSurfaceLayers'))
 slice1Display.ScaleFactor = 50
 
+# Disabled text addition in pvpython, will be added separately in label_images.py
 # text1 = Text(registrationName=name)
 # text1.Text = name
 # text1Display = Show(text1, renderView1, 'TextSourceRepresentation')
