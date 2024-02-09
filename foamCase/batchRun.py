@@ -97,7 +97,7 @@ print("=====\nTotal variations=%d, total parameters=%d" % \
 
 # Generate labels to text file
 print("Generating labels..")
-labels = ""
+labels = "base,\n"
 for key, value in layerTests.items():
     for val in value:
         name = f'{key}_{str(val)}'
