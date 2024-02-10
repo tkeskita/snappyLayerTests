@@ -63,8 +63,9 @@ were added, or SnappyHexMesh run failed. The run logs are saved to
 the `logs` folder, and mesh pictures in the `images` folder.
 The image color scale is fixed for 0<=nSurfaceLayers<=4.
 
-Note: The value of nOuterIter seems to affect nSurfaceLayers, and the
-value of nSurfaceLayers is correct only for nOuterIter=1 (openfoam.com
-v2312). For other nOuterIter values it seems that the nSurfaceLayers
-is affected. Therefore image colors make sense only within same
-nOuterIter value.
+Note: The value of nOuterIter seems to affect cell values of
+nSurfaceLayers. The cell value of nSurfaceLayers is "correct" only for
+nOuterIter=1 (openfoam.com v2312). For other nOuterIter values it
+seems that the cell values for nSurfaceLayers is calculated per layer
+addition iteration. Therefore the slice image colors make sense only
+within same nOuterIter value.
