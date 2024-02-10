@@ -11,6 +11,7 @@ import glob
 pattern1 = re.compile("^walls_manifold\s.*\d+\s+\d+\s+([\d\.]+)\s+[\d\.]+\s+([\d\.]+)")
 pattern2 = re.compile("^walls_nonmanifold\s.*\d+\s+\d+\s+([\d\.]+)\s+[\d\.]+\s+([\d\.]+)")
 pattern3 = re.compile("^walls_nonmanifold_slave\s.*\d+\s+\d+\s+([\d\.]+)\s+[\d\.]+\s+([\d\.]+)")
+pattern4 = re.compile("^Finished\ meshing\ in\ \=\ ([\d\.]*)\ s")
 
 search_dir = "../logs"
 files = list(filter(os.path.isfile, glob.glob(search_dir + "/log.snappyHexMesh_*")))
@@ -29,6 +30,7 @@ for file in files:
     w1 = "0.0,"
     w2 = "0.0,"
     w3 = "0.0,"
+    w4 = "0.0,"
     for line in open(filename):
         for match in re.finditer(pattern1, line):
             w1 = match.group(1) + ","
@@ -36,7 +38,9 @@ for file in files:
             w2 = match.group(1) + ","
         for match in re.finditer(pattern3, line):
             w3 = match.group(1) + ","
-    text += w1 + w2 + w3
+        for match in re.finditer(pattern4, line):
+            w4 = match.group(1) + ","
+    text += w1 + w2 + w3 + w4
 
     print("extracted results: " + text)
     with open(resultfilename, "a") as myfile:

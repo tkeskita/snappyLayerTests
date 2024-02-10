@@ -76,6 +76,8 @@ def meshSurface(casefoam):
     extractBlock2Display = Show(extractBlock2, renderView2, 'GeometryRepresentation')
     ColorBy(extractBlock2Display, ('CELLS', 'nSurfaceLayers'))
     extractBlock2Display.SetRepresentationType('Surface With Edges')
+    LUT = GetColorTransferFunction('nSurfaceLayers')
+    LUT.RescaleTransferFunction(0.0, 4.0)
 
 
 ###########################
@@ -110,8 +112,9 @@ slice1Display = GetDisplayProperties(slice1, view=renderView1)
 slice1Display.SetRepresentationType('Surface With Edges')
 ColorBy(slice1Display, ('CELLS', 'nSurfaceLayers'))
 slice1Display.ScaleFactor = 50
+LUT = GetColorTransferFunction('nSurfaceLayers')
+LUT.RescaleTransferFunction(0.0, 4.0)
 
-# Disabled text addition in pvpython, will be added separately in label_images.py
 # text1 = Text(registrationName=name)
 # text1.Text = name
 # text1Display = Show(text1, renderView1, 'TextSourceRepresentation')

@@ -36,7 +36,8 @@ def parse_logs(logname):
                 text_long += match.group(2) + "=" + match.group(1) + "," 
             for match in re.finditer(pattern2, line):
                 nRegions += 1
-        text = testname + "," + text_short[0:-1] + " regions=%d," % nRegions + text_long[0:-1]
+        # text = testname + "," + text_short[0:-1] + " regions=%d," % nRegions + text_long[0:-1]
+        text = testname + "," + text_short[0:-1] + "," + text_long[0:-1]
         print("extracted results: " + text)
         with open(resultfilename, "a") as myfile:
             myfile.write(text + "\n")
