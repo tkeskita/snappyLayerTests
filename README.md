@@ -34,7 +34,10 @@ a time.
   Surface feature extraction applied feature angle value 150.
 * For SnappyHexMesh base setup I used the settings produced by the
   [SnappyHexMesh GUI Blender add-on](https://github.com/tkeskita/snappyhexmesh_gui)
-  (version at the time was 1.5) as a basis (set nFaceSplitInterval to -1).
+  (version at the time was 1.5) as a basis (set nFaceSplitInterval to -1)
+  and modified values from there heuristically while testing.
+* See [analysis on the current results](./test_result_analysis.md).
+* [Discussion thread on CFD-Online](https://www.cfd-online.com/Forums/openfoam-meshing/254447-snappyhexmesh-parametric-sweep-study.html).
 
 ## How to run tests
 
