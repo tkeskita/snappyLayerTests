@@ -107,3 +107,7 @@ Note: The results may be updated!
 * **4<=nLayerIter<=12** seems good. nLayerIter>12 does not seem to change anything. nLayerIter=1 creates the best layer coverage and the worst amount of mesh errors.
 * **nRelaxedIter>0** decreases layer coverage radically.
 * **nOuterIter=4** (=target number of layers) generates best layer coverage with a smooth nSurfaceLayers transitions, but is computationally heavy. However, on previous test round nOuterIter=4 created only 2 layers, reason unclear.
+
+## Feedback
+
+[Link to discussion thread on CFD-Online](https://www.cfd-online.com/Forums/openfoam-meshing/254447-snappyhexmesh-parametric-sweep-study.html)
