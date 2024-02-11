@@ -240,7 +240,7 @@ addLayersControls
 
 meshQualityControls
 {
-    nSmoothScale    8; // 4;
+    nSmoothScale    4; // 8; // 4;
     errorReduction  0.75;
     #include "meshQualityDict"
 }

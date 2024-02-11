@@ -106,6 +106,7 @@ for key, value in layerTests.items():
 with open("results_labels.txt", "w") as myfile:
     myfile.write(labels)
 print("Done")
+# raise Exception("Stop here when regenerating labels afterwards")
 
 # Run the base case
 name = 'base'
@@ -118,7 +119,7 @@ os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
 os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
 os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
 os.system(f'rm {snappyDict}')
-# raise Exception("Stop here when debugging")
+# raise Exception("Stop here when debugging the base case")
 
 # Run variations
 for key, value in layerTests.items():
