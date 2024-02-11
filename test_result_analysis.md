@@ -55,6 +55,8 @@ Note: The results may be updated!
 
 ## Parameter specific observations
 
+Links to latest versions of [snappyHexMeshDict template](./foamCase/system/snappy.template) and [meshQualityDict](./foamCase/system/meshQualityDict)
+
 ### meshQualityControls (including mergeTolerance)
 
 * **nSmoothScale<=4** decreases layer coverage. Increase in nSmoothScale to values around 10-20 seems to remove mesh errors, but increases simulation time.
