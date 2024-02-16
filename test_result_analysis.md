@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-02-11
+Last updated: 2024-02-16
 
 ## Disclaimer
 
@@ -89,7 +89,7 @@ Links to latest versions of [snappyHexMeshDict template](./foamCase/system/snapp
 * **nSmoothPatch=2 is** good, larger values create skewed faces (and visualization shows missing cells in the mesh?).
 * **nSmoothInternal=1** or 2 is good, larger values does not affect anything.
 * **1.5<=tolerance<=3.0** looks good, no clear effect on layer coverage or mesh errors.
-* **2<=nSolverIter<=6** seems enough to relax the mesh on visual inspection, otherwise only minor effects.
+* **2<=nSolveIter<=6** seems enough to relax the mesh on visual inspection, otherwise only minor effects.
 * **2<=nRelaxIter<=10** seems enough to relax the mesh on visual inspection, otherwise only minor effects.
 * **nFeatureSnapIter=3** seems enough to snap to feature edges on visual inspection. nFeatureSnapIter>=5 seems to create mesh errors and decreases layer coverage. nFeatureSnapIter=0 allows layer addition also in spots where snapping to feature edges creates twists, like in the wind shield.
 * **nFaceSplitInterval=-1=0** is good. Values >0 increase layer coverage slightly, but create some skewed faces and more non-manifold points.

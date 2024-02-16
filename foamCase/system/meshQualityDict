@@ -27,6 +27,6 @@ minTriangleTwist 0.6;
 
 relaxed {
     maxNonOrtho 70;
-    minTriangleTwist 0.5;
+    // minTriangleTwist 0.5;
     // minTetQuality -1e+30;
 }

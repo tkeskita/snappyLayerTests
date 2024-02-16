@@ -12,13 +12,13 @@ import subprocess
 layerTests = {}
 
 layerTests['meshQualityControls.nSmoothScale']   = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 22, 24]
-layerTests['meshQualityControls.errorReduction'] = [0, 0.01, 0.05, 0.1, 0.2, 0.4, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 1, 1.1, 1.2, 1.4, 1.6, 2]
-layerTests['mergeTolerance']                     = [1e-7, 1e-6, 1e-5, 1e-3, 1e-2, 1e-1]
+layerTests['meshQualityControls.errorReduction'] = [0, 0.01, 0.05, 0.1, 0.2, 0.4, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 1, 1.1, 1.2, 1.4]
+# layerTests['mergeTolerance']                     = [1e-7, 1e-6, 1e-5, 1e-3, 1e-2, 1e-1]
 
 layerTests['meshQualityControls.maxNonOrtho']         = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 90]
 layerTests['meshQualityControls.maxBoundarySkewness'] = [-1, 0, 5, 10, 20, 30, 40, 50]
-layerTests['meshQualityControls.maxInternalSkewness'] = [-1, 0, 2, 4, 6, 8, 10, 20]
-layerTests['meshQualityControls.maxConcave']          = [0, 10, 20, 40, 60, 70, 80, 90, 120, 180]
+layerTests['meshQualityControls.maxInternalSkewness'] = [-1, 0, 1, 2, 3, 4, 5, 6, 8, 10, 20]
+layerTests['meshQualityControls.maxConcave']          = [0, 10, 20, 40, 60, 70, 80, 90]
 layerTests['meshQualityControls.minVol']              = [-1e33, 1e-30, 1e-15, 1e-10, 1e-5, 1e-2, 1e-1]
 layerTests['meshQualityControls.minTetQuality']       = [-1e-30, 1e-30, 1e-15, 1e-10, 1e-5, 0.01, 0.1, 0.5, 0.9, 0.95]
 layerTests['meshQualityControls.minArea']             = [-1, 0, 1e-30, 1e-20, 1e-10, 1e-5, 1e-3, 0.01, 0.1]
@@ -29,11 +29,11 @@ layerTests['meshQualityControls.minVolRatio']         = [-1, 0.001, 0.01, 0.05, 
 layerTests['meshQualityControls.minTriangleTwist']    = [-1, 0.05, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
 
 layerTests['meshQualityControls.relaxed.maxNonOrtho']      = [40, 50, 60, 70, 80, 90, 180]
-layerTests['meshQualityControls.relaxed.minTriangleTwist'] = [-1, 0.05, 0.1, 0.2, 0.4, 0.5]
+# layerTests['meshQualityControls.relaxed.minTriangleTwist'] = [-1, 0.05, 0.1, 0.2, 0.4, 0.5]
 # layerTests['meshQualityControls.relaxed.minTetQuality']    = [-1e-30, 1e-30, 1e-15, 1e-10]
 
 layerTests['snapControls.nSmoothPatch']       = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20]
-layerTests['snapControls.nSmoothInternal']    = [0, 1, 2, 3, 4, 5, 6]
+layerTests['snapControls.nSmoothInternal']    = [0, 1, 2, 3, 4]
 layerTests['snapControls.tolerance']          = [1, 1.5, 2, 2.5, 3, 3.5, 4]
 layerTests['snapControls.nSolveIter']         = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20, 30, 40, 50]
 layerTests['snapControls.nRelaxIter']         = [0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 30]
@@ -50,16 +50,23 @@ layerTests['addLayersControls.layerTerminationAngle']     = [-180, -160, -130, -
 layerTests['addLayersControls.maxFaceThicknessRatio']     = [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.0]
 layerTests['addLayersControls.nSmoothSurfaceNormals']     = [0, 1, 2, 4, 8, 12, 16, 32]
 layerTests['addLayersControls.nSmoothThickness']          = [0, 1, 2, 4, 6, 8, 10, 12, 16, 20, 30, 40, 60]
-layerTests['addLayersControls.nSmoothNormals']            = [0, 1, 2, 4, 8, 12, 16]
+layerTests['addLayersControls.nSmoothNormals']            = [0, 1, 2, 4, 8]
 layerTests['addLayersControls.nSmoothDisplacement']       = [0, 1, 2, 4, 8, 10, 12, 16, 20, 30, 40, 50]
 layerTests['addLayersControls.minMedialAxisAngle']        = [0, 5, 15, 30, 45, 90, 120, 180]
 layerTests['addLayersControls.maxThicknessToMedialRatio'] = [0.001, 0.01, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 1, 1.5, 2]
-layerTests['addLayersControls.slipFeatureAngle']          = [0, 15, 30, 90, 120, 160, 180]
+# layerTests['addLayersControls.slipFeatureAngle']          = [0, 15, 30, 90, 120, 160, 180]
 layerTests['addLayersControls.nRelaxIter']                = [0, 1, 2, 3, 4, 6, 8, 12, 20]
-layerTests['addLayersControls.nBufferCellsNoExtrude']     = [0, 1, 2, 3, 4, 6, 8, 12, 20]
-layerTests['addLayersControls.nLayerIter']                = [0, 1, 2, 3, 4, 6, 8, 12, 20, 40, 60]
+layerTests['addLayersControls.nBufferCellsNoExtrude']     = [0, 1, 2, 3, 4, 8]
+layerTests['addLayersControls.nLayerIter']                = [0, 1, 2, 3, 4, 6, 8, 12, 20, 40]
 layerTests['addLayersControls.nRelaxedIter']              = [0, 1, 2, 3, 4]
 layerTests['addLayersControls.nOuterIter']                = [0, 1, 2, 3, 4]
+
+# Test for two parameter combinations. WIP, disabled for now.
+# layerTests = {}
+var1Tests = {}
+# var1Tests['meshQualityControls.errorReduction'] = [0.01, 0.05, 0.15, 0.65, 0.75, 0.85, 0.95, 0.99]
+var2Tests = {}
+# var2Tests['meshQualityControls.nSmoothScale'] = [1, 2, 4, 8, 16, 32]
 
 
 def changeSnappySetting(setting, value, dict='./system/snappyHexMeshDict'):
@@ -121,7 +128,7 @@ os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
 os.system(f'rm {snappyDict}')
 # raise Exception("Stop here when debugging the base case")
 
-# Run variations
+# Run single parameter variations
 for key, value in layerTests.items():
     for val in value:
         name = f'{key}_{str(val)}'
@@ -140,3 +147,24 @@ for key, value in layerTests.items():
         os.system(f'./mesh {name} {date_time_string}')
         store_log_files(f'{date_time_string}_{name}')
         os.system(f'rm {snappyDict}')
+
+# Run two parameter variations
+for key1, values1 in var1Tests.items():
+    for val1 in values1:
+        for key2, values2 in var2Tests.items():
+            for val2 in values2:
+                name = f'{key1}_{str(val1)}_and_{key2}_{str(val2)}'
+                # Add time string to image file name end, unless this is the base case
+                date_time_string = datetime.now().strftime("%y%m%d%H%M%S")
+
+                print("=====\nStarting to run case %r" % name)
+                os.system(f'cp {snappyTemplate} {snappyDict}')
+                time.sleep(1)
+                changeSnappySetting(key1, str(val1))
+                time.sleep(1)
+                changeSnappySetting(key2, str(val2))
+                time.sleep(1)
+                os.system(f'./mesh {name} {date_time_string}')
+                store_log_files(f'{date_time_string}_{name}')
+                os.system(f'rm {snappyDict}')
+

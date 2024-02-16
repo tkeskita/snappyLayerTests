@@ -1,5 +1,19 @@
+# First test that OpenFOAM commands are available
+which surfaceFeatureExtract &> /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+    echo "Could not find OpenFOAM command surfaceFeatureExtract, exiting. OpenFOAM v2312 is probably not sourced correctly?"
+    exit 1
+fi
+
 ./remove_results
-surfaceFeatureExtract
+surfaceFeatureExtract &> /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+    echo "surfaceFeatureExtract failed, please check why. Exiting."
+    exit 1
+fi
+
 python3 batchRun.py
 python3 process_logfiles.py
 python3 process_checkmesh_files.py
