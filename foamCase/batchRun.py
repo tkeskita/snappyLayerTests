@@ -34,7 +34,7 @@ layerTests['meshQualityControls.relaxed.maxNonOrtho']      = [40, 50, 60, 70, 80
 
 layerTests['snapControls.nSmoothPatch']       = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20]
 layerTests['snapControls.nSmoothInternal']    = [0, 1, 2, 3, 4]
-layerTests['snapControls.tolerance']          = [1, 1.5, 2, 2.5, 3, 3.5, 4]
+layerTests['snapControls.tolerance']          = [0.8, 0.9, 1, 1.1, 1.2, 1.5, 2, 2.5, 3, 3.5, 4]
 layerTests['snapControls.nSolveIter']         = [0, 1, 2, 3, 4, 5, 6, 8, 10, 20, 30, 40, 50]
 layerTests['snapControls.nRelaxIter']         = [0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 30]
 layerTests['snapControls.nFeatureSnapIter']   = [0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 30]

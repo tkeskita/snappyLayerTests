@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-02-16
+Last updated: 2024-02-17
 
 ## Disclaimer
 
@@ -12,12 +12,21 @@ applicable.
 
 [Background, boundary conditions and code to run the tests](./README.md)
 
-The results from the snappyHexMesh runs:
-* [results.png](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results.png) shows the summary of parameter sweep results
+Latest results from snappyHexMesh with `nFeatureSnapIter 0` (and
+snap `tolerance 1.0`). These results show relatively low level of
+noise (visual variance in number of layers):
+
+* [result summary image](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_run8.png) shows the summary of parameter sweep results
+* [slice video](https://vimeo.com/913973776) colored by 0<=nSurfaceLayers<=4
+* [surface video](https://vimeo.com/913973744) colored by 0<=nSurfaceLayers<=4
+
+Here are earlier results with `nFeatureSnapIter 3` (and snap
+`tolerance 2.0`). These results show relatively high level of noise
+(visual variance in number of layers):
+
+* [result summary image](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_run6.png) shows the summary of parameter sweep results
 * [slice video](https://vimeo.com/906686016) colored by 0<=nSurfaceLayers<=4
 * [surface video](https://vimeo.com/906685981) colored by 0<=nSurfaceLayers<=4
-
-Note: The results may be updated!
 
 ## General observations
 
@@ -26,38 +35,45 @@ Note: The results may be updated!
   non-orthogonality, which makes it very hard to control parameter
   values to reach a specific result in non-trivial cases.
 
-* Results are noisy: Minor change in almost any parameter value
-  affects layer coverage and mesh errors, but the effect seems often
-  chaotic, or at least highly non-linear. Parameter sweeps seem to be
-  necessary to get overall trends.
+* Feature edge snapping (`nFeatureSnapIter > 0`) is often desirable as
+  it snaps patches to sharp edges. However, it can also create twisted
+  surfaces which can compromise subsequent layer addition. If feature
+  edge snapping feature is used, it is best to visually inspect the
+  the extracted feature edges
+  (`constant/extendedFeatureEdgeMesh/*_edgeMesh.obj` files) and to
+  ensure that feature edge snapping is limited only to necessary
+  edges.
+
+* Results with `nFeatureSnapIter 3` are noisy: Minor change in almost
+  any parameter value affects layer coverage and mesh errors in
+  a seemingly chaotic way. Parameter sweeps seem to be necessary to get
+  overall trends. With `nFeatureSnapIter 0` the noise level decreases,
+  so it is easier to gauge the effect of single parameters on the end
+  result.
+
+* Mesh error count (as reported by checkMesh) can be improved by two methods:
+
+  * Tightening a mesh quality criteria (e.g. `minTriangleTwist`) at
+    the cost of lowered quality in snapping and layer coverage.
+
+  * increasing `nSmoothScale` value >10 at the cost of increased meshing
+    time.
+
+* Good layer coverage seems to require sufficient mesh refinement.  It
+  is not possible to achieve good layer coverage with a coarse mesh
+  (refinement level 1 in this test).
+
+* Layers seem to be typically removed (collapsed) in regions of high
+  surface curvature and large enough change in surface mesh face size.
+
+* OpenFOAM.com option `nOuterIter` value set to target number of
+  layers gave highest coverage, at the cost of increased meshing time.
 
 * Cross-correlations are not revealed in these tests. Due to the noise
   in the results, identification of cross-correlations would likely
   require a lot of test points -> would be heavy calculation.
   Nonetheless, some cross-correlations might be worthwhile to
   study, e.g. `nSmoothScale` vs. `errorReduction`.
-
-* Mesh error count (as reported by checkMesh) can be improved by two methods:
-
-  * Tightening a mesh quality criteria (e.g. `minTriangleTwist`) at
-    the cost of lowered quality in snapping and layer coverage.
-  * increasing `nSmoothScale` values up to values around or above
-    10-20 at the cost of increased meshing time.
-
-* Good layer coverage with good mesh quality really seems to require
-  sufficient mesh refinement. It is not possible to achieve good layer
-  coverage with a coarse mesh (like in this test).
-
-* OpenFOAM.com option `nOuterIter` set to value of target number of
-  layers seems promising for good layer coverage. Needs further
-  testing.
-
-* Feature edge snapping (`nFeatureSnapIter > 0`) can create twisted
-  surfaces which creates mesh errors and compromises subsequent layer
-  addition.
-
-* Increasing surface refinement increases layer coverage
-  significantly, as well as the mesh cell count.
 
 
 ## Parameter specific observations
@@ -91,7 +107,7 @@ Links to latest versions of [snappyHexMeshDict template](./foamCase/system/snapp
 * **1.5<=tolerance<=3.0** looks good, no clear effect on layer coverage or mesh errors.
 * **2<=nSolveIter<=6** seems enough to relax the mesh on visual inspection, otherwise only minor effects.
 * **2<=nRelaxIter<=10** seems enough to relax the mesh on visual inspection, otherwise only minor effects.
-* **nFeatureSnapIter=3** seems enough to snap to feature edges on visual inspection. nFeatureSnapIter>=5 seems to create mesh errors and decreases layer coverage. nFeatureSnapIter=0 allows layer addition also in spots where snapping to feature edges creates twists, like in the wind shield.
+* **nFeatureSnapIter=3** seems enough to snap to feature edges on visual inspection. nFeatureSnapIter>=5 seems to create mesh errors and decreases layer coverage. nFeatureSnapIter=0 allows better layer addition in spots where snapping to feature edges creates twists, like in the wind shield.
 * **nFaceSplitInterval=-1=0** is good. Values >0 increase layer coverage slightly, but create some skewed faces and more non-manifold points.
 
 ### addLayersControls
@@ -115,7 +131,8 @@ Links to latest versions of [snappyHexMeshDict template](./foamCase/system/snapp
 * **nBufferCellsNoExtrude>0** decreases layer coverage.
 * **4<=nLayerIter<=12** seems good. nLayerIter>12 does not seem to change anything. nLayerIter=1 creates the best layer coverage and the worst amount of mesh errors.
 * **nRelaxedIter>0** decreases layer coverage radically.
-* **nOuterIter=4** (=target number of layers) generates best layer coverage with a smooth nSurfaceLayers transitions, but is computationally heavy. However, on previous test round nOuterIter=4 created only 2 layers, reason unclear.
+* **nOuterIter=4** (=target number of layers) generates best layer coverage with a smooth nSurfaceLayers transitions, but is computationally heavy.
+
 
 ## Feedback
 
