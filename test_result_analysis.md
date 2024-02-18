@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-02-17
+Last updated: 2024-02-18
 
 ## Disclaimer
 
@@ -19,6 +19,7 @@ noise (visual variance in number of layers):
 * [result summary image](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_run8.png) shows the summary of parameter sweep results
 * [slice video](https://vimeo.com/913973776) colored by 0<=nSurfaceLayers<=4
 * [surface video](https://vimeo.com/913973744) colored by 0<=nSurfaceLayers<=4
+* [clay video](https://vimeo.com/914195069) white surfaces to visualize snapping
 
 Here are earlier results with `nFeatureSnapIter 3` (and snap
 `tolerance 2.0`). These results show relatively high level of noise
