@@ -86,6 +86,7 @@ def copy_base_case_results(name):
     os.system(f'cp ../logs/log.checkMesh_layers_base ../logs/log.checkMesh_layers_' + name)
     os.system(f'cp ../images/slice_base.png ../images/slice_' + name + ".png")
     os.system(f'cp ../images/surface_base.png ../images/surface_' + name + ".png")
+    os.system(f'cp ../images/clay_base.png ../images/clay_' + name + ".png")
 
 
 def store_log_files(name):
