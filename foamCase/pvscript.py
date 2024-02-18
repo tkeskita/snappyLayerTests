@@ -73,12 +73,7 @@ def setPerspectiveCam(camera):
 def meshSurface(casefoam):
     extractBlock2 = ExtractBlock(registrationName='ExtractBlock2', Input=casefoam)
     extractBlock2.BlockIndices = [2]
-    extractBlock2Display = Show(extractBlock2, renderView2, 'GeometryRepresentation')
-    ColorBy(extractBlock2Display, ('CELLS', 'nSurfaceLayers'))
-    extractBlock2Display.SetRepresentationType('Surface With Edges')
-    LUT = GetColorTransferFunction('nSurfaceLayers')
-    LUT.RescaleTransferFunction(0.0, 4.0)
-
+    return extractBlock2
 
 ###########################
 ## Start the main script ##
@@ -136,7 +131,7 @@ AssignViewToLayout(view=renderView2, layout=layout2, hint=0)
 camera = GetActiveCamera()
 setPerspectiveCam(camera)
 
-meshSurface(casefoam)
+extractBlock2 = meshSurface(casefoam)
 
 # text2Display = Show(text1, renderView2, 'TextSourceRepresentation')
 # if name == 'base':
@@ -144,5 +139,18 @@ meshSurface(casefoam)
 # else:
 #     text2Display.Color = [0.0, 0.0, 0.0]
 # text2Display.FontSize = 50
+
+extractBlock2Display = Show(extractBlock2, renderView2, 'GeometryRepresentation')
+extractBlock2Display.AmbientColor = [1.0, 1.0, 1.0]
+extractBlock2Display.DiffuseColor = [1.0, 1.0, 1.0]
+
+# Only surfaces with white color to see surface smoothness
+SaveScreenshot(f'{screenshotDir}/clay_{file_name_end}.png',renderView2,ImageResolution=[2400,2400])
+
+# Color by surface layers
+ColorBy(extractBlock2Display, ('CELLS', 'nSurfaceLayers'))
+extractBlock2Display.SetRepresentationType('Surface With Edges')
+LUT = GetColorTransferFunction('nSurfaceLayers')
+LUT.RescaleTransferFunction(0.0, 4.0)
 
 SaveScreenshot(f'{screenshotDir}/surface_{file_name_end}.png',renderView2,ImageResolution=[2400,2400])

@@ -36,7 +36,7 @@ Here are earlier results with `nFeatureSnapIter 3` (and snap
   values to reach a specific result in non-trivial cases.
 
 * Feature edge snapping (`nFeatureSnapIter > 0`) is often desirable as
-  it snaps patches to sharp edges. However, it can also create twisted
+  it snaps patch edges to sharp edges in the geometry. However, it can also create twisted
   surfaces which can compromise subsequent layer addition. If feature
   edge snapping feature is used, it is best to visually inspect the
   the extracted feature edges
