@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-02-18
+Last updated: 2024-02-26
 
 ## Disclaimer
 
@@ -12,7 +12,16 @@ applicable.
 
 [Background, boundary conditions and code to run the tests](./README.md)
 
-Latest results from snappyHexMesh with `nFeatureSnapIter 0` (and
+Latest results from snappyHexMesh with `mergePatchFaces false` and
+`nFeatureSnapIter 0`, including also some less common snappyHexMesh
+parameters in the variations:
+
+* [result summary image](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_run13.png) shows the summary of parameter sweep results
+* [slice video](https://vimeo.com/916759617) colored by 0<=nSurfaceLayers<=4
+* [surface video](https://vimeo.com/916759534) colored by 0<=nSurfaceLayers<=4
+* [clay video](https://vimeo.com/916759473) white surfaces to visualize snapping
+
+Previous results with `nFeatureSnapIter 0` (and
 snap `tolerance 1.0`). These results show relatively low level of
 noise (visual variance in number of layers):
 
