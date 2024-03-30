@@ -48,9 +48,9 @@ a time.
 Prerequisites:
 
 * Edit `foamCase/mesh` file to point to pvpython of Paraview 5.9.1
-* Edit `batchRun.py` for the parameters (`layerTests` dictionary contents).
-  If you want to run only the base case, uncomment the line
+* If you want to run only the base case, uncomment the line
   `# raise Exception("Stop here when debugging the base case")`.
+* Edit `batchRun.py` for the parameters (`layerTests` dictionary contents) if needed.
 * install `opencv` Python package to python3 (e.g. in Ubuntu: `sudo apt-get install python3-opencv`)
 
 Then run following commands in terminal:
