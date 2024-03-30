@@ -18,17 +18,9 @@ geometry
     {
         type triSurfaceMesh;
         file "atmosphere.stl";
-        // Min Bounds = [-8.00000e-01 -8.00000e-01  2.00000e+00]
-        // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
-        // Area = 5.12000e+00
-    }
-    frontBack
-    {
-        type triSurfaceMesh;
-        file "frontBack.stl";
         // Min Bounds = [-8.00000e-01 -8.00000e-01  0.00000e+00]
-        // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
-        // Area = 1.28000e+01
+        // Max Bounds = [ 6.80000e+00  8.00000e-01  2.00000e+00]
+        // Area = 4.22857e+01
     }
     inlet
     {
@@ -42,17 +34,17 @@ geometry
     {
         type triSurfaceMesh;
         file "outlet.stl";
-        // Min Bounds = [ 2.40000e+00 -8.00000e-01  0.00000e+00]
-        // Max Bounds = [ 2.40000e+00  8.00000e-01  2.00000e+00]
-        // Area = 3.20000e+00
+        // Min Bounds = [ 6.80000e+00 -8.00000e-01  1.00000e-01]
+        // Max Bounds = [ 6.80000e+00  8.00000e-01  1.90000e+00]
+        // Area = 2.88000e+00
     }
     walls_ground
     {
         type triSurfaceMesh;
         file "walls_ground.stl";
         // Min Bounds = [-8.00000e-01 -8.00000e-01  0.00000e+00]
-        // Max Bounds = [ 2.40000e+00  8.00000e-01  0.00000e+00]
-        // Area = 5.12000e+00
+        // Max Bounds = [ 6.80000e+00  8.00000e-01  1.00000e-01]
+        // Area = 1.21657e+01
     }
     walls_manifold
     {
@@ -79,7 +71,7 @@ castellatedMeshControls
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
     nCellsBetweenLevels 4;
-    locationInMesh (0.0 0.0 1.5);
+    locationInMesh (0.20582744479179382 0.02170400321483612 1.4563772678375244);
     allowFreeStandingZoneFaces true;
     resolveFeatureAngle 30;
     planarAngle 30; // defaults to resolveFeatureAngle if not given
@@ -91,10 +83,6 @@ castellatedMeshControls
     (
         {
             file "atmosphere.eMesh";
-            level 0;
-        }
-        {
-            file "frontBack.eMesh";
             level 0;
         }
         {
@@ -127,11 +115,6 @@ castellatedMeshControls
             level (0 0);
             patchInfo { type patch; }
         }
-        frontBack
-        {
-            level (0 0);
-            patchInfo { type patch; }
-        }
         inlet
         {
             level (0 0);
@@ -149,13 +132,13 @@ castellatedMeshControls
         }
         walls_manifold
         {
-            level (1 1);
+            level (2 2);
             patchInfo { type wall; }
 	    // gapLevelIncrement 2;
         }
         walls_nonmanifold
         {
-            level (1 1);
+            level (2 2);
             patchInfo { type wall; }
             faceZone walls_nonmanifold;
             faceType baffle;
@@ -177,12 +160,12 @@ castellatedMeshControls
 
 snapControls
 {
-    nSmoothPatch    2; // 1; // 3;
-    nSmoothInternal 1; // 3; // OpenFOAM.com option
-    tolerance       1.0; // 2.0; // 1.5; // 2.0;
-    nSolveIter      4; // 30;
-    nRelaxIter      5;
-    nFeatureSnapIter 0; // 3; // 2; // 10;
+    nSmoothPatch 2;
+    nSmoothInternal 1; // OpenFOAM.com option
+    tolerance 2.0;
+    nSolveIter 4;
+    nRelaxIter 5;
+    nFeatureSnapIter 0;
     implicitFeatureSnap false;
     explicitFeatureSnap true;
     multiRegionFeatureSnap true;
@@ -198,31 +181,31 @@ snapControls
 addLayersControls
 {
     // Layer sizing
-    relativeSizes   true;
-    expansionRatio  1.2; // 1.3;
+    relativeSizes true;
+    expansionRatio 1.3;
     finalLayerThickness 0.3;
-    minThickness    0.01; // 0.2; // 0.001;
-    nGrow           0;
+    minThickness 0.001;
+    nGrow 0;
 
     // Mesh dependencies
-    featureAngle    130;
+    featureAngle 130;
     mergePatchFacesAngle 45; // OpenFOAM.com option
     layerTerminationAngle -180; // OpenFOAM.com option
     maxFaceThicknessRatio 0.5;
     disableWallEdges false;
 
     // Mesh displacement iterations
-    nSmoothSurfaceNormals 8; // 12; // 3 * max number of layers seems good
-    nSmoothThickness 2; // 4; // 10;
-    nSmoothNormals  0;
-    nSmoothDisplacement 12; // 100;
+    nSmoothSurfaceNormals 8;
+    nSmoothThickness 2;
+    nSmoothNormals 0;
+    nSmoothDisplacement 12;
     nMedialAxisIter 1000;
 
     // Medial axis analysis
     minMedialAxisAngle 90;
-    maxThicknessToMedialRatio 0.5; // 0.9;
-    slipFeatureAngle 30; // 90; // 30;
-    nRelaxIter      4; // 1;
+    maxThicknessToMedialRatio 0.5;
+    slipFeatureAngle 30;
+    nRelaxIter 4;
 
     // OpenFOAM.com displacement motion solver
     // meshShrinker displacementMotionSolver;
@@ -231,9 +214,9 @@ addLayersControls
 
     // Mesh shrinking overall settings
     nBufferCellsNoExtrude 0;
-    nLayerIter      8; // 50;
-    nRelaxedIter    0;
-    nOuterIter      4; // 2; // OpenFOAM.com option, half of max number of layers seems good
+    nLayerIter 8;
+    nRelaxedIter 0;
+    nOuterIter 1000; // OpenFOAM.com option
     additionalReporting true;
 
     layers
@@ -260,7 +243,7 @@ addLayersControls
 
 meshQualityControls
 {
-    nSmoothScale    4; // 8; // 4;
+    nSmoothScale    4;
     errorReduction  0.75;
     #include "meshQualityDict"
 }

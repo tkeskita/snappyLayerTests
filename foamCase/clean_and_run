@@ -17,5 +17,6 @@ fi
 python3 batchRun.py
 python3 process_logfiles.py
 python3 process_checkmesh_files.py
+python3 process_solver_minmax.py
 python3 plot_results.py
 python3 label_images.py

@@ -40,3 +40,15 @@ checkMesh -time 4 &> log.checkMesh_layers
 # save the mesh images
 printf "Generating mesh images...\n"
 ~/temp/ParaView-5.9.1-MPI-Linux-Python3.8-64bit/bin/pvpython pvscript.py $name $date_time_string
+
+echo "Run simpleFoam solver test case"
+cd solverCase
+rm -rf 0 ?? ??? log.* processor* constant/polyMesh postProcessing > /dev/null
+cp -rv 0.orig 0 > /dev/null
+cp -rv ../4/polyMesh constant/ > /dev/null
+echo "running potentialFoam"
+potentialFoam &> log.potentialFoam
+echo "running decomposePar"
+decomposePar > /dev/null
+echo "running simpleFoam"
+mpirun -np 3 simpleFoam -parallel &> log.simpleFoam

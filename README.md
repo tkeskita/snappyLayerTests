@@ -36,6 +36,10 @@ a time.
   [SnappyHexMesh GUI Blender add-on](https://github.com/tkeskita/snappyhexmesh_gui)
   (version at the time was 1.5) as a basis (set nFaceSplitInterval to -1)
   and modified values from there heuristically while testing.
+* Added a `simpleFoam` test run case (modified motorBike test case) to
+  foamCase/solverCase folder. Idea is to evaluate solver divergence
+  tendency with the generated mesh, by checking number of iterations,
+  maximum velocity magnitude and maximum pressure magnitude.
 * See [analysis on the current results](./test_result_analysis.md).
 * [Discussion thread on CFD-Online](https://www.cfd-online.com/Forums/openfoam-meshing/254447-snappyhexmesh-parametric-sweep-study.html).
 
@@ -43,7 +47,10 @@ a time.
 
 Prerequisites:
 
-* Edit `foamCase/mesh` file (last line) to point to pvpython of Paraview 5.9.1
+* Edit `foamCase/mesh` file to point to pvpython of Paraview 5.9.1
+* Edit `batchRun.py` for the parameters (`layerTests` dictionary contents).
+  If you want to run only the base case, uncomment the line
+  `# raise Exception("Stop here when debugging the base case")`.
 * install `opencv` Python package to python3 (e.g. in Ubuntu: `sudo apt-get install python3-opencv`)
 
 Then run following commands in terminal:

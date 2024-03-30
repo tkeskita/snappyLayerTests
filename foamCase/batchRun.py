@@ -101,6 +101,7 @@ def copy_base_case_results(name):
     os.system(f'cp ../logs/log.snappyHexMesh_base ../logs/log.snappyHexMesh_' + name)
     os.system(f'cp ../logs/log.checkMesh_snapping_base ../logs/log.checkMesh_snapping_' + name)
     os.system(f'cp ../logs/log.checkMesh_layers_base ../logs/log.checkMesh_layers_' + name)
+    os.system(f'cp ../logs/log.fieldMinMax_base ../logs/log.fieldMinMax_' + name)
     os.system(f'cp ../images/slice_base.png ../images/slice_' + name + ".png")
     os.system(f'cp ../images/surface_base.png ../images/surface_' + name + ".png")
     os.system(f'cp ../images/clay_base.png ../images/clay_' + name + ".png")
@@ -110,6 +111,7 @@ def store_log_files(name):
     os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
     os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
     os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
+    os.system(f'cp solverCase/postProcessing/minMaxMagnitude\(\)/0/fieldMinMax.dat ../logs/log.fieldMinMax_' + name)
 
 
 snappyDict = './system/snappyHexMeshDict'
@@ -140,9 +142,7 @@ if os.path.isfile(snappyDict):
     os.remove(snappyDict)
 os.system(f'cp {snappyTemplate} {snappyDict}')
 os.system(f'./mesh {name} dummy_argument')
-os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
-os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
-os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
+store_log_files(name)
 os.system(f'rm {snappyDict}')
 # raise Exception("Stop here when debugging the base case")
 

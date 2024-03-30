@@ -10,3 +10,6 @@ rm -f results.png
 rm -rf system/largestOnly
 rm -f constant/cellToRegion.gz
 
+cd solverCase
+rm -rf 0 ?? ??? log.* processor* constant/polyMesh postProcessing
+cd ..
