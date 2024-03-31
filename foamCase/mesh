@@ -24,6 +24,14 @@ reconstructPar -time 2 > /dev/null
 echo "running checkMesh for time 2 (snapping)"
 checkMesh -time 2 &> log.checkMesh_snapping
 
+# Copy processor*/2 to processor*/3 if they are not existing already
+# This is a workaround to continue even with cases without layers.
+if [ ! -d "processor0/3" ]; then
+  for f in `ls -1 | grep processor`; do
+    cp -rv $f/2 $f/3 > /dev/null
+  done
+fi
+
 echo "running reconstructParMesh for time 3"
 reconstructParMesh -time 3 > /dev/null
 echo "running reconstructPar for time 3"

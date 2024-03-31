@@ -11,6 +11,7 @@ import subprocess
 # Variation test cases
 layerTests = {}
 
+layerTests['addLayers'] = ['true', 'false']
 layerTests['mergePatchFaces'] = ['true', 'false']
 # layerTests['mergeTolerance']                     = [1e-7, 1e-6, 1e-5, 1e-3, 1e-2, 1e-1]
 

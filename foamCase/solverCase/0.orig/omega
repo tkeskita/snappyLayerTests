@@ -26,6 +26,17 @@ boundaryField
         value           $internalField;
     }
 
+    atmosphere
+    {
+        type            slip;
+    }
+
+    inlet
+    {
+        type  fixedValue;
+        value $internalField;
+    }
+
     outlet
     {
         type            inletOutlet;
