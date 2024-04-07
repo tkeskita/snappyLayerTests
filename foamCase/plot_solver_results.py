@@ -16,7 +16,7 @@ with open('results_snappy.txt', newline='\n') as csvfile, \
     reader3 = csv.reader(csvfile3, delimiter=',')
     for row, row2, row3 in zip(reader, reader2, reader3):
         layer_avg = (float(row[1]) + float(row[2]) + float(row[3])) / 3.0
-        label = row2[0] + " -- maxP=%g" % float(row3[3]) + " -- layers=%.3g" % layer_avg + " -- iters=%s" % row3[1]
+        label = row2[0] + " -- maxMagU=%g+-%g" % (float(row3[2]), float(row3[4])) + " -- maxP=%g" % float(row3[3]) + " -- layers=%.3g" % layer_avg + " -- iters=%s" % row3[1]
         labels.append(label)
         val = float(row3[2])  # max(mag(U))
         vals.append(val)

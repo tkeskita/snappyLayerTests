@@ -6,7 +6,7 @@ rm -f system/snappyHexMeshDict
 rm -f ../logs/log.*
 rm -f ../images/*.png
 rm -rf 0
-rm -f results.png
+rm -f results*.png
 rm -rf system/largestOnly
 rm -f constant/cellToRegion.gz
 

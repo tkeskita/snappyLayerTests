@@ -7,6 +7,7 @@ plot_results.py
 import os
 import re
 import glob
+import statistics
 
 pattern1 = re.compile("^(\d+)\s*([\w\(\)]+).*\(.*\).*\s([\d\.e\+\-]+)\s+\(.*\)")
 
@@ -24,6 +25,7 @@ for file in files:
     testname = filename.split("fieldMinMax_")[1].lstrip("0123456789_")
     text = testname + ","
 
+    Uvals = []
     maxMagU = 0.0
     maxP = 0.0
     iter = 0
@@ -34,12 +36,19 @@ for file in files:
             value = float(match.group(3))
             if iter < 10:
                 continue
-            if varname == "mag(U)" and value > maxMagU:
-                maxMagU = value
+            if varname == "mag(U)":
+                Uvals.append(value)
+                if value > maxMagU:
+                    maxMagU = value
             elif varname == "p" and value > maxP:
                 maxP = value
 
-    text += str(iter) + "," + str(maxMagU) + "," + str(maxP) + ","
+    if iter > 10:
+        stdev_val = statistics.stdev(Uvals)
+    else:
+        stdev_val = 0.0
+
+    text += str(iter) + "," + str(maxMagU) + "," + str(maxP) + "," + str(stdev_val)
 
     print("extracted results: " + text)
     with open(resultfilename, "a") as myfile:
