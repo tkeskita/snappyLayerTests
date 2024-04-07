@@ -1,0 +1,1 @@
+montage -geometry 800x600 results_stability_coverage_for_* results_montage.png

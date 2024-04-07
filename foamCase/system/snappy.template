@@ -205,7 +205,7 @@ addLayersControls
     minMedialAxisAngle 90;
     maxThicknessToMedialRatio 0.5;
     slipFeatureAngle 30;
-    nRelaxIter 4;
+    nRelaxIter 10; // 4;
 
     // OpenFOAM.com displacement motion solver
     // meshShrinker displacementMotionSolver;
@@ -223,19 +223,19 @@ addLayersControls
     {
         walls_ground
         {
-            nSurfaceLayers 4;
+            nSurfaceLayers 1;
         }
         walls_manifold
         {
-            nSurfaceLayers 4;
+            nSurfaceLayers 1;
         }
         walls_nonmanifold
         {
-            nSurfaceLayers 4;
+            nSurfaceLayers 1;
         }
         walls_nonmanifold_slave
         {
-            nSurfaceLayers 4;
+            nSurfaceLayers 1;
         }
 
     }

@@ -23,7 +23,7 @@ with open('results_snappy.txt', newline='\n') as csvfile, \
         layer_avg = (float(row[1]) + float(row[2]) + float(row[3])) / 3.0
         layers.append(layer_avg)
 
-fig, ax = plt.subplots(figsize=(15,65))
+fig, ax = plt.subplots(figsize=(15, 15)) #,65))
 fig.tight_layout()
 x = range(len(layers))
 width = 0.8

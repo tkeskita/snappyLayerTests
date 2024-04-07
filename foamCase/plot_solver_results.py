@@ -21,7 +21,7 @@ with open('results_snappy.txt', newline='\n') as csvfile, \
         val = float(row3[2])  # max(mag(U))
         vals.append(val)
 
-fig, ax = plt.subplots(figsize=(15,65))
+fig, ax = plt.subplots(figsize=(15,15)) # ,65))
 fig.tight_layout()
 x = range(len(vals))
 width = 0.8
