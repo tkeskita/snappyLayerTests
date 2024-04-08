@@ -17,7 +17,7 @@ maxConcave      80;
 minVol          1e-15;
 minTetQuality   1e-15;
 minArea         1e-30; // -1;
-minTwist        0.2; // 0.01; // 0.05;
+minTwist        0.14; // 0.2; // 0.01; // 0.05;
 minDeterminant  0.02; // 0.001;
 minFaceWeight   0.05; // 0.01; // 0.05;
 minVolRatio     0.04; // 0.01;

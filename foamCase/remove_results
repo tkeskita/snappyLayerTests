@@ -9,6 +9,7 @@ rm -rf 0
 rm -f results*.png
 rm -rf system/largestOnly
 rm -f constant/cellToRegion.gz
+rm -f optimizer_output.txt
 
 cd solverCase
 rm -rf 0 ?? ??? log.* processor* constant/polyMesh postProcessing
