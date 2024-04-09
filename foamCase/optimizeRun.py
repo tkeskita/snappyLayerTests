@@ -83,7 +83,7 @@ def f(x):
     n_layers_lacking *= 50.0  # Increase cost of lacking layers
     err = maxMagU + n_layers_lacking + n_iters_lacking
     err2 = err * err
-    printout = "params=" + str(list(x)) + " err2=%g" % err2 + " costs=" + str(maxMagU) + ", " + str(n_layers_lacking) + ", " + str(n_iters_lacking)
+    printout = "%.5e," % err2 + "%.5e," % maxMagU + "%.5e," % n_layers_lacking + "%.5e," % n_iters_lacking + str(list(x))
     print(printout)
     with open("optimizer_output.txt", "a") as outfile:
         outfile.write(printout + "\n")
@@ -110,5 +110,14 @@ def set_x0(param_names, values, dict='./system/snappyHexMeshDict'):
 # Main program
 os.system('surfaceFeatureExtract > log.surfaceFeatureExtract')
 x0 = get_x0(param_names)
-res = minimize(f, x0, method='nelder-mead', \
-               options={'xatol': 1e-8, 'disp': True})
+
+# Custom initial simplex: decrease values by 30% (default is increase by 5%)
+initial_simplex = np.array(x0)
+for i in range(len(x0)):
+    x = x0.copy()
+    x[i] *= 0.7
+    initial_simplex = np.c_[initial_simplex, x]
+initial_simplex = initial_simplex.transpose()
+
+options = {'xatol': 1e-8, 'disp': True, 'initial_simplex': initial_simplex}
+res = minimize(f, x0, method='nelder-mead', options=options)
