@@ -26,7 +26,7 @@ minTriangleTwist 0.6;
 // Relaxed quality criteria for layer addition phase
 
 relaxed {
-    maxNonOrtho 70;
+    maxNonOrtho 65;
     // minTriangleTwist 0.5;
     // minTetQuality -1e+30;
 }

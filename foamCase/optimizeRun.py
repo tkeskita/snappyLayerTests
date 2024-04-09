@@ -120,4 +120,9 @@ for i in range(len(x0)):
 initial_simplex = initial_simplex.transpose()
 
 options = {'xatol': 1e-8, 'disp': True, 'initial_simplex': initial_simplex}
+
+# Run once
+# f(x0)
+
+# Optimize
 res = minimize(f, x0, method='nelder-mead', options=options)
