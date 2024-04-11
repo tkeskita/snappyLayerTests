@@ -132,13 +132,13 @@ castellatedMeshControls
         }
         walls_manifold
         {
-            level (1 1); // (2 2);
+            level (2 2);
             patchInfo { type wall; }
 	    // gapLevelIncrement 2;
         }
         walls_nonmanifold
         {
-            level (1 1); // (2 2);
+            level (2 2);
             patchInfo { type wall; }
             faceZone walls_nonmanifold;
             faceType baffle;
@@ -182,7 +182,7 @@ addLayersControls
 {
     // Layer sizing
     relativeSizes true;
-    expansionRatio 1.3;
+    expansionRatio 1.6667; // 1.3;
     finalLayerThickness 0.6; // 0.3;
     minThickness 0.001;
     nGrow 0;
@@ -223,19 +223,19 @@ addLayersControls
     {
         walls_ground
         {
-            nSurfaceLayers 1;
+            nSurfaceLayers 4;
         }
         walls_manifold
         {
-            nSurfaceLayers 1;
+            nSurfaceLayers 4;
         }
         walls_nonmanifold
         {
-            nSurfaceLayers 1;
+            nSurfaceLayers 4;
         }
         walls_nonmanifold_slave
         {
-            nSurfaceLayers 1;
+            nSurfaceLayers 4;
         }
 
     }

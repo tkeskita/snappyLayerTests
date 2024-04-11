@@ -47,17 +47,22 @@ def plot_variable(name):
 
     labels, coverages, stabilities = get_data(name)
 
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, axs = plt.subplots(2, 1, figsize=(10, 6))
     # fig.tight_layout()
-    ax.plot(coverages, stabilities)
-    for label, x, y in zip(labels, coverages, stabilities):
-        ax.annotate(label, xy=(x, y), textcoords="data")
-    ax.set_xlabel("layer coverage")
-    ax.set_ylabel("max(mag(U))")
-    plt.title(name)
-    ax.set_xlim([0, 0.8])
-    ax.set_ylim([30, 60.0])
-    ax.grid()
+
+    def myplot(ax, minx=0.0, maxx=1.0):
+        ax.plot(coverages, stabilities)
+        for label, x, y in zip(labels, coverages, stabilities):
+            ax.annotate(label, xy=(x, y), textcoords="data")
+        ax.set_xlabel("layer coverage")
+        ax.set_ylabel("max(mag(U))")
+        ax.set_xlim([minx, maxx])
+        ax.set_ylim([38, 102.0])
+        ax.grid()
+
+    fig.suptitle(name)
+    myplot(axs[0], 0.0, 4.0)
+    myplot(axs[1], 2.2, 2.35)
     plt.savefig("results_stability_coverage_for_" + name + ".png")
 
 def get_variables():
