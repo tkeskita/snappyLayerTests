@@ -7,7 +7,7 @@ import numpy as np
 import csv
 import re
 
-pattern1 = re.compile(r"^.*?\.(.*)_(.*)$")
+pattern1 = re.compile(r"^.*?([\w\.]+)_(.*)$")
 maxU = 1000.0  # maximum value for max(mag(U))
 
 def get_data(name):
@@ -54,15 +54,16 @@ def plot_variable(name):
         ax.plot(coverages, stabilities)
         for label, x, y in zip(labels, coverages, stabilities):
             ax.annotate(label, xy=(x, y), textcoords="data")
-        ax.set_xlabel("layer coverage")
-        ax.set_ylabel("max(mag(U))")
+        ax.set_xlabel("mean layer coverage")
+        ax.set_ylabel("unstability (max(mag(U)))")
         ax.set_xlim([minx, maxx])
-        ax.set_ylim([38, 102.0])
+        ax.set_ylim([28, 102.0])
         ax.grid()
+        ax.plot(2.164, 55.8415, marker="x", color="red") # hard-coded base value, CHECKME
 
     fig.suptitle(name)
     myplot(axs[0], 0.0, 4.0)
-    myplot(axs[1], 2.2, 2.35)
+    myplot(axs[1], 2, 2.5)
     plt.savefig("results_stability_coverage_for_" + name + ".png")
 
 def get_variables():
