@@ -50,20 +50,21 @@ def plot_variable(name):
     fig, axs = plt.subplots(2, 1, figsize=(10, 6))
     # fig.tight_layout()
 
-    def myplot(ax, minx=0.0, maxx=1.0):
+    def myplot(ax, minx=None, maxx=None):
         ax.plot(coverages, stabilities)
         for label, x, y in zip(labels, coverages, stabilities):
             ax.annotate(label, xy=(x, y), textcoords="data")
         ax.set_xlabel("mean layer coverage")
         ax.set_ylabel("unstability (max(mag(U)))")
-        ax.set_xlim([minx, maxx])
-        ax.set_ylim([28, 102.0])
+        if minx != None and maxx != None:
+            ax.set_xlim([minx, maxx])
+            ax.set_ylim([28, 102.0])
         ax.grid()
-        ax.plot(2.164, 55.8415, marker="x", color="red") # hard-coded base value, CHECKME
+        ax.plot(1.2563, 32.71386, marker="x", color="red") # hard-coded base value, CHECKME
 
     fig.suptitle(name)
     myplot(axs[0], 0.0, 4.0)
-    myplot(axs[1], 2, 2.5)
+    myplot(axs[1])
     plt.savefig("results_stability_coverage_for_" + name + ".png")
 
 def get_variables():

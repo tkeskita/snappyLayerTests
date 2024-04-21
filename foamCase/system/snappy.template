@@ -164,7 +164,7 @@ snapControls
     nSmoothInternal 1; // OpenFOAM.com option
     tolerance 2.0;
     nSolveIter 4;
-    nRelaxIter 5;
+    nRelaxIter 5; // 10; // 5;
     nFeatureSnapIter 0;
     implicitFeatureSnap false;
     explicitFeatureSnap true;
@@ -188,9 +188,9 @@ addLayersControls
     nGrow 0;
 
     // Mesh dependencies
-    featureAngle 130;
+    featureAngle 85; // 130;
     mergePatchFacesAngle 45; // OpenFOAM.com option
-    layerTerminationAngle -180; // OpenFOAM.com option
+    layerTerminationAngle 20; // -180; // OpenFOAM.com option
     maxFaceThicknessRatio 0.5;
     disableWallEdges false;
 

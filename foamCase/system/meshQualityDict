@@ -11,9 +11,9 @@ FoamFile
 // Export date: 2024-01-26 11:49:50.320784
 
 maxNonOrtho     35;
-maxBoundarySkewness 20;
-maxInternalSkewness 1.5; // 4;
-maxConcave      80;
+maxBoundarySkewness 2.0; // 1.5; // 20;
+maxInternalSkewness 1.5; // 0.9; // 1.5; // 4;
+maxConcave      20; // 80;
 minVol          1e-15;
 minTetQuality   1e-15;
 minArea         1e-30;

@@ -34,7 +34,7 @@ for file in files:
             iter = int(match.group(1))
             varname = match.group(2)
             value = float(match.group(3))
-            if iter < 10:
+            if iter < 30:
                 continue
             if varname == "mag(U)":
                 Uvals.append(value)

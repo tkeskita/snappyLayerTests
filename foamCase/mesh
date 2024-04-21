@@ -22,7 +22,7 @@ reconstructParMesh -time 2 > /dev/null
 echo "running reconstructPar for time 2"
 reconstructPar -time 2 > /dev/null
 echo "running checkMesh for time 2 (snapping)"
-checkMesh -time 2 &> log.checkMesh_snapping
+checkMesh -time 2  -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_snapping
 
 # Copy processor*/2 to processor*/3 if they are not existing already
 # This is a workaround to continue even with cases without layers.
@@ -40,10 +40,26 @@ reconstructPar -time 3 > /dev/null
 # Resulting mesh contains unconnected mesh regions, keep only the largest one
 echo "running splitMeshRegions -largestOnly for time 3"
 splitMeshRegions -largestOnly &> log.splitMeshRegions
-mv 4/largestOnly/* 4/
-rmdir 4/largestOnly
+
+# Copy 3 to 4 if splitMeshRegions didn't do anything
+if [ ! -d "4" ]; then
+  cp -r 3 4
+fi
+if [ -d "4/largestOnly" ]; then
+  mv 4/largestOnly/* 4/
+  rmdir 4/largestOnly
+fi
+
 echo "running checkMesh for time 4 (layers)"
-checkMesh -time 4 &> log.checkMesh_layers
+checkMesh -time 4 -meshQuality -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers
+# checkMesh -time 4 -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers
+
+# # These commands create VTK surface meshes for visualizing values on
+# # internal and boundary faces, for serious debugging only
+# echo "running topoSet for time 4 (layers)"
+# topoSet -time 4 &> log.topoSet
+# echo "running foamToVTK for time 4 (layers)"
+# foamToVTK -time 4 -faceZones '(internalFaceZone boundaryFaceZone)' &> log.foamToVTK
 
 # save the mesh images
 if [ ! "$name" == "optimizer" ]; then
