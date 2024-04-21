@@ -22,7 +22,8 @@ reconstructParMesh -time 2 > /dev/null
 echo "running reconstructPar for time 2"
 reconstructPar -time 2 > /dev/null
 echo "running checkMesh for time 2 (snapping)"
-checkMesh -time 2  -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_snapping
+checkMesh -time 2 -meshQuality &> log.checkMesh_snapping
+# checkMesh -time 2 -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_snapping
 
 # Copy processor*/2 to processor*/3 if they are not existing already
 # This is a workaround to continue even with cases without layers.
