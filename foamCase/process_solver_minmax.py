@@ -43,7 +43,7 @@ for file in files:
             elif varname == "p" and value > maxP:
                 maxP = value
 
-    if iter > 10:
+    if iter > 30:
         stdev_val = statistics.stdev(Uvals)
     else:
         stdev_val = 0.0

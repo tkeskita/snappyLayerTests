@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-04-14
+Last updated: 2024-04-26
 
 ## Disclaimer
 
@@ -12,7 +12,24 @@ applicable.
 
 [Background, boundary conditions and code to run the tests](./README.md)
 
-Latest results, with simpleFoam solver (un)stability testing, using
+Results with simpleFoam solver (un)stability testing, using maximum of
+max(mag(U)) from iterations 30-200 as a measure of unstability. This
+case applied values `layerTerminationAngle 20`, `maxInternalSkewness
+1.5`, `maxBoundarySkewness 2.0`. A key change was to decrease under
+relaxation of `U` (from 0.9 to 0.8) for simpleFoam. This increased the
+stability of the solution significantly (using `consistent yes` for
+`SIMPLE`).
+
+* [unstability vs. mean layer coverage plots of variables](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_montage_run46.png)
+* [mean layer coverage result plot](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_run46.png)
+* [stability result plot](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_solver_run46.png)
+* [slice video](https://vimeo.com/939556131) colored by 0<=nSurfaceLayers<=4
+* [surface video](https://vimeo.com/939556168) colored by 0<=nSurfaceLayers<=4
+* [clay video](https://vimeo.com/939556098) white surfaces to visualize snapping
+
+---
+
+Results with simpleFoam solver (un)stability testing, using
 maximum of max(mag(U)) from iterations 10-200 as a measure of
 unstability.  In this case, the value of `maxInternalSkewness` was
 lowered from 4 to 1.5, as it seemed to provide fairly stable results
@@ -27,6 +44,8 @@ curvature areas.
 * [surface video](https://vimeo.com/934492908) colored by 0<=nSurfaceLayers<=4
 * [clay video](https://vimeo.com/934492863) white surfaces to visualize snapping
 
+---
+
 Below are the previous results from snappyHexMesh with `mergePatchFaces false` and
 `nFeatureSnapIter 0`, including also some less common snappyHexMesh
 parameters in the variations:
@@ -36,6 +55,8 @@ parameters in the variations:
 * [surface video](https://vimeo.com/916759534) colored by 0<=nSurfaceLayers<=4
 * [clay video](https://vimeo.com/916759617) white surfaces to visualize snapping
 
+---
+
 Below are the previous results with `nFeatureSnapIter 0` (and
 snap `tolerance 1.0`). These results show relatively low level of
 noise (visual variance in number of layers):
@@ -44,6 +65,8 @@ noise (visual variance in number of layers):
 * [slice video](https://vimeo.com/913973776) colored by 0<=nSurfaceLayers<=4
 * [surface video](https://vimeo.com/913973744) colored by 0<=nSurfaceLayers<=4
 * [clay video](https://vimeo.com/914195069) white surfaces to visualize snapping
+
+---
 
 Here are earlier results with `nFeatureSnapIter 3` (and snap
 `tolerance 2.0`). These results show relatively high level of noise
@@ -106,7 +129,8 @@ Here are earlier results with `nFeatureSnapIter 3` (and snap
   chaotic.
 
 * OpenFOAM.com option `nOuterIter` value set to target number of
-  layers gave highest coverage, at the cost of increased meshing time.
+  layers (or a very large value like 1000) gave highest coverage, at
+  the cost of increased meshing time.
 
 * Some outlier parameter values (value out of normal or typical range)
   can result in significantly improved layer coverage
@@ -120,8 +144,11 @@ Here are earlier results with `nFeatureSnapIter 3` (and snap
   might be worthwhile to study, e.g. `nSmoothScale`
   vs. `errorReduction`.
 
-* the value of `maxInternalSkewness` seems to be highly correlated
-  with simpleFoam solver stability.
+* A low of `layerTerminationAngle`, `maxInternalSkewness`, and
+  `maxBoundarySkewness` seem to be highly correlated with simpleFoam
+  solver stability. Current best values which seem to provide stable
+  solution are `layerTerminationAngle 20`, `maxInternalSkewness 1.5`
+  and `maxBoundarySkewness 2.0`.
 
 
 ## Parameter specific observations
@@ -130,7 +157,7 @@ Links to latest versions of [snappyHexMeshDict template](./foamCase/system/snapp
 
 ### top level parameters
 
-* **mergePatchFaces false** increases layer coverage, possibly because surface mesh cells are flatter and face size differences are small.
+* **mergePatchFaces false** increases layer coverage a bit, possibly because surface mesh cells are flatter and face size differences are small.
 * **mergeTolerance>=1e-6** seems good, and does not seem to affect much.
 
 ### meshQualityControls
@@ -138,17 +165,17 @@ Links to latest versions of [snappyHexMeshDict template](./foamCase/system/snapp
 * **nSmoothScale<=4** decreases layer coverage. nSmoothScale>10 seems to decrease mesh errors (decrease is mild and chaotic), but it also increases simulation time significantly.
 * **0.2<=errorReduction<=0.9** seems best, smaller or larger values decrease layer coverage slightly.
 * **30<=maxNonOrtho<=70** seems good. **maxNonOrtho<=25** causes mesh errors.
-* **10<=maxBoundarySkewness<=50** seems good, and does not seem to affect anything much.
-* **1<=maxInternalSkewness<=4** seems good. Larger values create skew faces. maxInternalSkewness=4 gave best layer coverage, and maxInternalSkewness<=1.6 improves simpleFoam stability (decreases max(mag(U)).
-* **60<=maxConcave<=90** seems good, and does not seem to affect anything much.
+* **2<=maxBoundarySkewness<=50** seems good. Low values seem to increase simpleFoam stability.
+* **0.8<=maxInternalSkewness<=4** seems good. Low values seem to increase simpleFoam stability. Larger values create skew faces. maxInternalSkewness=4 gave best layer coverage, and maxInternalSkewness<=2 improves simpleFoam stability (decreases max(mag(U)).
+* **20<=maxConcave<=80** seems good, and does not seem to affect anything much. **maxConcave<=20** decreases coverage.
 * **1e-30<=minVol<=1e-10** seems good. Larger values decrease layer coverage and create mesh errors.
 * **1e-30<=minTetQuality<=1e-10** seems good. Larger values decrease layer coverage and then start to create mesh errors.
 * **1e-30<=minArea<=1e-5** seems good. Larger values decrease layer coverage.
 * **minTwist<=0.1** seems good. Larger values decrease layer coverage.
 * **minDeterminant<=0.01** seems good. Larger values decrease layer coverage.
-* **minFaceWeight<=0.05** seems good. Larger values decrease layer coverage.
+* **minFaceWeight<=0.05** seems good. Larger values decrease layer coverage and increase unstability of simpleFoam solution.
 * **minVolRatio<=0.01** seems good. Larger values decrease layer coverage.
-* **minTriangleTwist<=0.7** seems good. Larger values decrease layer coverage.
+* **minTriangleTwist<=0.8** seems good. Larger values decrease layer coverage.
 * **relaxed.maxNonOrto > maxNonOrtho(35)** increases layer coverage up to relaxed.maxNonOrtho=70 or 80.
 * **relaxed.minTriangleTwist < minTriangleTwist(0.6)** does not increase layer coverage.
 
