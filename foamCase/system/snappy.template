@@ -182,7 +182,7 @@ addLayersControls
 {
     // Layer sizing
     relativeSizes true;
-    expansionRatio 1.6667; // 1.3;
+    expansionRatio 1.3; // 1.6667; // 1.3;
     finalLayerThickness 0.6; // 0.3;
     minThickness 0.001;
     nGrow 0;
@@ -190,7 +190,7 @@ addLayersControls
     // Mesh dependencies
     featureAngle 85; // 130;
     mergePatchFacesAngle 45; // OpenFOAM.com option
-    layerTerminationAngle 20; // -180; // OpenFOAM.com option
+    layerTerminationAngle 45; // 30; // 20; // -180; // OpenFOAM.com option
     maxFaceThicknessRatio 0.5;
     disableWallEdges false;
 

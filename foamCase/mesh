@@ -53,7 +53,7 @@ fi
 
 echo "running checkMesh for time 4 (layers)"
 checkMesh -time 4 -meshQuality -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers
-# checkMesh -time 4 -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers
+checkMesh -time 4 -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers_all_checks
 
 # # These commands create VTK surface meshes for visualizing values on
 # # internal and boundary faces, for serious debugging only

@@ -13,14 +13,14 @@ FoamFile
 maxNonOrtho     35;
 maxBoundarySkewness 2.0; // 1.5; // 20;
 maxInternalSkewness 1.5; // 0.9; // 1.5; // 4;
-maxConcave      20; // 80;
+maxConcave      30; // 20; // 80;
 minVol          1e-15;
 minTetQuality   1e-15;
 minArea         1e-30;
 minTwist        0.05;
 minDeterminant  0.001;
 minFaceWeight   0.05;
-minVolRatio     0.01;
+minVolRatio     0.05; // 0.01;
 minTriangleTwist 0.6;
 
 // Relaxed quality criteria for layer addition phase
