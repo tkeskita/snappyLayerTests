@@ -60,7 +60,7 @@ def plot_variable(name):
             ax.set_xlim([minx, maxx])
             ax.set_ylim([28, 102.0])
         ax.grid()
-        ax.plot(1.3233, 33.42066, marker="x", color="red") # hard-coded base value, CHECKME
+        ax.plot(1.9633, 35.65507, marker="x", color="red") # hard-coded base value, CHECKME
 
     fig.suptitle(name)
     myplot(axs[0], 0.0, 4.0)

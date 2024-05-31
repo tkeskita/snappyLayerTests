@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-04-26
+Last updated: 2024-05-31
 
 ## Disclaimer
 
@@ -11,6 +11,23 @@ applicable.
 ## Data
 
 [Background, boundary conditions and code to run the tests](./README.md)
+
+Results with simpleFoam solver (un)stability testing, using maximum of
+max(mag(U)) from iterations 30-200 as a measure of unstability. This
+case applied values `layerTerminationAngle 45` (for increased
+coverage), `maxInternalSkewness 1.5`, `maxBoundarySkewness 2.0` and
+`minVolRatio 0.05` (attempt to decrease likelihood of flat layer
+cells). Using `consistent yes` for `SIMPLE`, and `U` relaxation value
+0.8. The results seem fairly good.
+
+* [unstability vs. mean layer coverage plots of variables](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_montage_run51.png)
+* [mean layer coverage result plot](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_run51.png)
+* [stability result plot](http://tkeskita.kapsi.fi/OF/snappyLayerTests_results_solver_run51.png)
+* [slice video](https://vimeo.com/952301613) colored by 0<=nSurfaceLayers<=4
+* [surface video](https://vimeo.com/952301642) colored by 0<=nSurfaceLayers<=4
+* [clay video](https://vimeo.com/952301583) white surfaces to visualize snapping
+
+---
 
 Results with simpleFoam solver (un)stability testing, using maximum of
 max(mag(U)) from iterations 30-200 as a measure of unstability. This

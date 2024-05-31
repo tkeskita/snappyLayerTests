@@ -10,7 +10,7 @@ rm -f results*.png
 rm -rf system/largestOnly
 rm -f constant/cellToRegion.gz
 rm -f optimizer_output.txt
-rm -f CheckMesh.json
+rm -f checkMesh.json
 
 cd solverCase
 rm -rf 0 ?? ??? log.* processor* constant/polyMesh postProcessing
