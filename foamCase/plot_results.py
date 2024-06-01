@@ -10,7 +10,7 @@ labels=[]
 layers=[]
 with open('results_snappy.txt', newline='\n') as csvfile, \
     open('results_checkmesh_snapping.txt', newline='\n') as csvfile2, \
-    open('results_checkmesh_layers.txt', newline='\n') as csvfile3, \
+    open('results_checkmesh_layers_important_checks.txt', newline='\n') as csvfile3, \
     open('results_labels.txt', newline='\n') as csvfile4:
     reader = csv.reader(csvfile, delimiter=',')
     reader2 = csv.reader(csvfile2, delimiter=',')
