@@ -11,7 +11,7 @@ import glob
 def parse_logs(logname):
     """Parse checkMesh logs for argument logname (snapping or layers)"""
  
-    search_dir = "../logs/log.checkMesh_" + logname + "_*"
+    search_dir = "../logs/log.checkMesh_important_checks_" + logname + "_*"
     files = list(filter(os.path.isfile, glob.glob(search_dir)))
     # Sort files by file creation date
     files.sort(key=lambda x: os.path.getmtime(x))

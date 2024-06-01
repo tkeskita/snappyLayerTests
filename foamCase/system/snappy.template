@@ -210,7 +210,8 @@ addLayersControls
     // OpenFOAM.com displacement motion solver
     // meshShrinker displacementMotionSolver;
     // solver displacementLaplacian;
-    // displacementLaplacianCoeffs { diffusivity quadratic inverseDistance ("wall.*"); }
+    // displacementLaplacianCoeffs { diffusivity uniform uniform; }
+    // // displacementLaplacianCoeffs { diffusivity quadratic inverseDistance ("wall.*"); }
 
     // Mesh shrinking overall settings
     nBufferCellsNoExtrude 0;

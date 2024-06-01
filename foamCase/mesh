@@ -51,8 +51,9 @@ if [ -d "4/largestOnly" ]; then
   rmdir 4/largestOnly
 fi
 
-echo "running checkMesh for time 4 (layers)"
-checkMesh -time 4 -meshQuality -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers
+echo "running checkMesh (important checks) for time 4 (layers)"
+checkMesh -time 4 -meshQuality -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers_important_checks
+echo "running checkMesh (all checks) for time 4 (layers)"
 checkMesh -time 4 -meshQuality -allGeometry -allTopology -writeChecks json -writeAllFields -writeAllSurfaceFields &> log.checkMesh_layers_all_checks
 
 # # These commands create VTK surface meshes for visualizing values on

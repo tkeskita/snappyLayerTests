@@ -105,7 +105,7 @@ def is_base_case(setting, value):
 def copy_base_case_results(name):
     os.system(f'cp ../logs/log.snappyHexMesh_base ../logs/log.snappyHexMesh_' + name)
     os.system(f'cp ../logs/log.checkMesh_snapping_base ../logs/log.checkMesh_snapping_' + name)
-    os.system(f'cp ../logs/log.checkMesh_layers_base ../logs/log.checkMesh_layers_' + name)
+    os.system(f'cp ../logs/log.checkMesh_layers_important_checks_base ../logs/log.checkMesh_layers_important_checks' + name)
     os.system(f'cp ../logs/log.checkMesh_layers_all_checks_base ../logs/log.checkMesh_layers_all_checks_' + name)
     os.system(f'cp ../logs/log.simpleFoam_base ../logs/log.simpleFoam_' + name)
     os.system(f'cp ../logs/log.fieldMinMax_base ../logs/log.fieldMinMax_' + name)
@@ -117,7 +117,7 @@ def copy_base_case_results(name):
 def store_log_files(name):
     os.system(f'cp log.snappyHexMesh ../logs/log.snappyHexMesh_' + name)
     os.system(f'cp log.checkMesh_snapping ../logs/log.checkMesh_snapping_' + name)
-    os.system(f'cp log.checkMesh_layers ../logs/log.checkMesh_layers_' + name)
+    os.system(f'cp log.checkMesh_layers_important_checks ../logs/log.checkMesh_layers_important_checks_' + name)
     os.system(f'cp log.checkMesh_layers_all_checks ../logs/log.checkMesh_layers_all_checks_' + name)
 
     # Create empty log files if no files were created, to make postprocessing easy
