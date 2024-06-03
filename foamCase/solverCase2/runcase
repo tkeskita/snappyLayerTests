@@ -1,0 +1,9 @@
+. /opt/openfoam12/etc/bashrc
+rm -rf 0 ?? ??? log.* processor* constant/polyMesh postProcessing > /dev/null
+cp -rv 0.orig 0 > /dev/null
+cp -rv ../4/polyMesh constant/ > /dev/null
+echo "running decomposePar"
+decomposePar > /dev/null
+echo "running foamRun"
+mpirun -np 3 foamRun -solver multiphaseEuler -parallel &> log.foamRun
+

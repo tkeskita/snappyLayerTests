@@ -1,0 +1,35 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  dev
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      functions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#includeFunc mag(U.water, executeControl=timeStep)
+#includeFunc mag(U.air, executeControl=timeStep)
+
+#includeFunc cellMax
+(
+    name=max,
+    writeControl=timeStep,
+    writeinterval=1,
+    alpha.water,
+    alpha.air,
+    p,
+    p_rgh,
+    T.air,
+    T.water,
+    mag(U.water),
+    mag(U.air)
+)
+
+// ************************************************************************* //
