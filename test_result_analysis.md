@@ -1,6 +1,6 @@
 # Analysis of SnappyLayerTests results
 
-Last updated: 2024-05-31
+Last updated: 2024-06-21
 
 ## Disclaimer
 
@@ -11,6 +11,19 @@ applicable.
 ## Data
 
 [Background, boundary conditions and code to run the tests](./README.md)
+
+---
+
+Decreased simpleFoam `U` equation relaxation from 0.8 to 0.7 and added
+`p` relaxation 0.3 to `fields` section in `relaxationFactors`. This
+was done, since tests with larger meshes (increased surface refinement
+by 2 levels) turned out to be unstable in roughly 50% of tests. With
+the modifications above, only one out of 19 large mesh tests exhibited
+mild divergent behavior. It seems that relaxation of solution is
+important for fine meshes when using a mesh generated with the current
+SnappyHexMesh settings.
+
+---
 
 Results with simpleFoam solver (un)stability testing, using maximum of
 max(mag(U)) from iterations 30-200 as a measure of unstability. This
